@@ -318,7 +318,15 @@
       font-size: 13px;
       letter-spacing: 0.3px;
       padding: 0 16px 34px;
+      line-height: 1.9;
     }
+    footer a {
+      color: var(--text-soft);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(155, 160, 176, 0.6);
+      transition: color 0.2s ease;
+    }
+    footer a:hover { color: var(--accent-1); border-bottom-color: transparent; }
 
     /* ============ 深色模式 ============ */
     @media (prefers-color-scheme: dark) {
@@ -446,7 +454,8 @@
   </section>
 
   <footer>
-    © <span id="year">2025</span> Xiaotang27 · 保留所有权利
+    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
+    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
   </footer>
 
   <script src="assets/markdown.js"></script>

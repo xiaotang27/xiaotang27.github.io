@@ -46,6 +46,11 @@
     </div>
   </div>
 
+  <footer class="site-footer">
+    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
+    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  </footer>
+
   <script src="assets/markdown.js"></script>
   <script>
     (function () {
@@ -115,6 +120,9 @@
         fail(err.message);
       });
     })();
+
+    var yrEl = document.getElementById('year');
+    if (yrEl) yrEl.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

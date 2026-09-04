@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="300" viewBox="0 0 1320 300" role="img" aria-label="Xiaotang27 博客头图示例">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="52%" stop-color="#764ba2"/>
+      <stop offset="100%" stop-color="#f093fb"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.55">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1320" height="300" fill="url(#g)"/>
+  <rect width="1320" height="300" fill="url(#glow)"/>
+
+  <!-- 装饰圆点 -->
+  <circle cx="1180" cy="64" r="26" fill="#ffffff" opacity="0.28"/>
+  <circle cx="1246" cy="150" r="8"  fill="#ffffff" opacity="0.5"/>
+  <circle cx="120" cy="236" r="16" fill="#ffffff" opacity="0.25"/>
+  <circle cx="60" cy="120" r="6"  fill="#ffffff" opacity="0.4"/>
+  <circle cx="680" cy="262" r="10" fill="#ffffff" opacity="0.18"/>
+
+  <!-- 中央书本图标 -->
+  <g transform="translate(640,118)" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M20 12h28a18 18 0 0 1 18 18v64a13 13 0 0 0-13-13H20z"/>
+    <path d="M100 12H72a18 18 0 0 0-18 18v64a13 13 0 0 1 13-13h33z"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "slug": "hello-world",
+      "title": "你好，世界",
+      "desc": "站点开张的第一篇随笔，聊聊为什么要搭这个站。",
+      "cover": "posts/covers/4R2A1972.JPG",
+      "tags": ["随笔"]
+    }
+  ]
+}

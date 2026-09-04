@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Xiaotang27 的博客文章。" />
+  <title>文章 · Xiaotang27</title>
+  <link rel="icon" type="image/svg+xml" href="../avatar.svg" />
+  <link rel="stylesheet" href="../assets/blog.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="../index.html">
+        <img src="../assets/xiaotang27-logo.webp" alt="Xiaotang27" />
+        <span>
+          <span class="brand-name">Xiaotang27</span><br />
+          <span class="brand-sub">丢 掉 幻 想 · 准 备 斗 争</span>
+        </span>
+      </a>
+      <a class="btn-back" href="../index.html">← 主页</a>
+    </header>
+
+    <div class="status" id="status">正在加载文章…</div>
+
+    <div id="wrap" style="display:none">
+      <!-- 头图位：有 cover 时显示图片，无则渐变占位 -->
+      <div class="article-cover" id="cover"></div>
+
+      <header class="article-header">
+        <h1 class="article-title" id="title"></h1>
+        <div class="article-meta">
+          <span id="date"></span>
+          <span id="words"></span>
+          <span id="readTime"></span>
+          <span class="tags" id="tags"></span>
+        </div>
+      </header>
+
+      <article class="article" id="content"></article>
+
+      <footer class="post-footer">
+        <a href="../index.html">← 返回主页</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/markdown.js"></script>
+  <script>
+    (function () {
+      var BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+      var params = new URLSearchParams(location.search);
+      var slug = params.get('post');
+
+      var status = document.getElementById('status');
+      var wrap = document.getElementById('wrap');
+      var coverEl = document.getElementById('cover');
+      var titleEl = document.getElementById('title');
+      var dateEl = document.getElementById('date');
+      var wordsEl = document.getElementById('words');
+      var readTimeEl = document.getElementById('readTime');
+      var tagsEl = document.getElementById('tags');
+      var contentEl = document.getElementById('content');
+
+      function fail(msg) {
+        status.textContent = '没有找到这篇文章：' + msg +
+          '。若在本地直接打开，请用本地 HTTP 服务访问（见 README）。';
+      }
+
+      if (!slug) { fail('缺少 ?post= 参数'); return; }
+
+      Promise.all([
+        fetch('../posts/index.json').then(function (r) { return r.ok ? r.json() : null; }),
+        fetch('../posts/' + encodeURIComponent(slug) + '.md').then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+      ]).then(function (res) {
+        var meta = null;
+        (res[0] && res[0].posts || []).forEach(function (p) { if (p.slug === slug) meta = p; });
+        var md = res[1];
+        // 页面标题由清单提供，正文里重复的开头一级标题去掉
+        if (meta) md = md.replace(/^#\s+[^\n]*\n?/, '');
+
+        document.title = (meta ? meta.title : slug) + ' · Xiaotang27';
+
+        var words = countWords(md);
+        var mins = readMinutes(words);
+
+        titleEl.textContent = (meta && meta.title) || '';
+        dateEl.textContent = (meta && meta.date) ? '发布于 ' + meta.date : '';
+        wordsEl.textContent = '约 ' + formatWords(words);
+        readTimeEl.textContent = '约 ' + mins + ' 分钟读完';
+        tagsEl.innerHTML = ((meta && meta.tags) || []).map(function (t) {
+          return '<span class="tag">' + t + '</span>';
+        }).join('');
+
+        // 头图：meta.cover 为图片路径（相对站点根目录）；没有则渐变占位
+        if (meta && meta.cover) {
+          var src = (meta.cover.indexOf('http') === 0 || meta.cover.charAt(0) === '/')
+            ? meta.cover
+            : '../' + meta.cover;
+          coverEl.innerHTML = '<img src="' + src + '" alt="' + (meta.title || '') + '" />';
+        } else {
+          coverEl.classList.add('placeholder');
+          coverEl.innerHTML = BOOK;
+        }
+
+        contentEl.innerHTML = renderMarkdown(md);
+
+        status.style.display = 'none';
+        wrap.style.display = '';
+      }).catch(function (err) {
+        fail(err.message);
+      });
+    })();
+  </script>
+</body>
+</html>

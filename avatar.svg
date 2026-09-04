@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320" role="img" aria-label="Xiaotang27 avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="55%" stop-color="#764ba2"/>
+      <stop offset="100%" stop-color="#f093fb"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.35" r="0.75">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景圆角方块 -->
+  <rect width="320" height="320" rx="72" fill="url(#bg)"/>
+
+  <!-- 顶部柔光 -->
+  <rect width="320" height="320" rx="72" fill="url(#halo)"/>
+
+  <!-- 装饰小圆点 -->
+  <circle cx="248" cy="72" r="14" fill="#ffffff" opacity="0.25"/>
+  <circle cx="66" cy="238" r="8" fill="#ffffff" opacity="0.3"/>
+  <circle cx="262" cy="206" r="6" fill="#ffffff" opacity="0.22"/>
+
+  <!-- 首字母徽标 -->
+  <text x="160" y="186" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="128" font-weight="700" fill="#ffffff">
+    X
+  </text>
+</svg>

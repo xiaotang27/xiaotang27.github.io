@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Xiaotang27 的个人主页：丢掉幻想，准备斗争。" />
+  <meta name="theme-color" content="#667eea" />
+  <title>Xiaotang27's Blog</title>
+  <link rel="icon" type="image/svg+xml" href="avatar.svg" />
+  <style>
+    /* ============ 基础 ============ */
+    :root {
+      --bg: #f5f6fb;
+      --glass-bg: rgba(255, 255, 255, 0.6);
+      --glass-line: rgba(28, 32, 48, 0.08);
+      --card: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(255, 255, 255, 0.9);
+      --text: #1c2030;
+      --text-soft: #5b6472;
+      --text-faint: #9aa1b0;
+      --rule: rgba(102, 126, 234, 0.16);
+      --btn-bg: #ffffff;
+      --btn-border: #e6e8f2;
+      --shadow: 0 24px 70px -18px rgba(88, 96, 170, 0.3);
+      --accent-1: #667eea;
+      --accent-2: #764ba2;
+      --accent-3: #f093fb;
+      --badge-bg: #ffffff;
+      --band-h: 64px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+        "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============ 背景光斑 ============ */
+    .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; }
+    .b1 {
+      width: 520px; height: 520px; left: -140px; top: -160px;
+      background: radial-gradient(circle at 30% 30%, var(--accent-1), transparent 70%);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .b2 {
+      width: 460px; height: 460px; right: -120px; bottom: -140px;
+      background: radial-gradient(circle at 60% 40%, var(--accent-3), transparent 70%);
+      animation: drift 22s ease-in-out infinite alternate-reverse;
+    }
+    .b3 {
+      width: 320px; height: 320px; left: 46%; top: 55%;
+      background: radial-gradient(circle at 50% 50%, var(--accent-2), transparent 70%);
+      opacity: 0.32;
+      animation: drift 26s ease-in-out infinite alternate;
+    }
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to   { transform: translate3d(40px, -30px, 0) scale(1.12); }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ 顶部毛玻璃区域 ============ */
+    .glass {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--band-h);
+      z-index: 100;
+      background: var(--glass-bg);
+      -webkit-backdrop-filter: blur(18px) saturate(170%);
+      backdrop-filter: blur(18px) saturate(170%);
+      border-bottom: 1px solid var(--glass-line);
+    }
+    .glass-inner {
+      max-width: 1080px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* 迷你资料卡：默认隐藏，资料卡片完全进入毛玻璃区域后淡入 */
+    .mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(6px);
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+      cursor: pointer;
+      user-select: none;
+      background: none;
+      border: none;
+      font-family: inherit;
+      color: inherit;
+      padding: 0;
+    }
+    .glass.is-active .mini { opacity: 1; transform: translateY(0); visibility: visible; }
+    .mini img {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 12px -3px rgba(80, 90, 160, 0.4);
+    }
+    .mini-text { display: flex; flex-direction: column; line-height: 1.25; text-align: left; }
+    .mini-name { font-size: 16px; font-weight: 800; letter-spacing: .3px; }
+    .mini-slogan { font-size: 12px; color: var(--text-soft); margin-top: 2px; letter-spacing: 1px; }
+
+    /* ============ 首屏：个人资料卡（垂直居中） ============ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--band-h) + 24px) 16px 48px;
+    }
+
+    .profile {
+      width: min(94vw, 680px);
+      background: var(--card);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 52px 48px 44px;
+      text-align: center;
+      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    /* 圆形头像（不拉伸） */
+    .pf-avatar {
+      width: 148px; height: 148px;
+      margin: 0 auto;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 14px 34px -10px rgba(88, 96, 170, 0.5);
+      transition: transform 0.35s ease;
+    }
+    .pf-avatar:hover { transform: scale(1.05); }
+
+    .name {
+      margin-top: 24px;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(120deg, #23283a, var(--accent-2) 60%, var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--text); /* 兜底 */
+    }
+    .slogan {
+      margin-top: 10px;
+      color: var(--text-soft);
+      font-size: 15.5px;
+      line-height: 1.6;
+      letter-spacing: 2px;
+    }
+
+    /* 按钮：全部同一行 */
+    .links { margin-top: 32px; }
+    .link-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--text-soft);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 3px 10px -4px rgba(80, 90, 160, 0.18);
+      transition: transform 0.22s ease, box-shadow 0.22s ease,
+                  color 0.22s ease, border-color 0.22s ease;
+    }
+    .btn svg { width: 16px; height: 16px; display: block; }
+    .badge {
+      width: 17px; height: 17px;
+      flex: 0 0 17px;
+      border-radius: 4px;
+      background: var(--badge-bg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .badge img { width: 13px; height: 13px; object-fit: contain; display: block; }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -8px rgba(80, 90, 160, 0.35); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 2px solid var(--accent-1); outline-offset: 3px; }
+
+    .btn.github:hover   { color: #24292f; border-color: #24292f; }
+    .btn.bili:hover     { color: #fb7299; border-color: #fb7299; }
+    .btn.tangible:hover { color: #111111; border-color: #111111; }
+    .btn.modrinth:hover { color: #00af5c; border-color: #00af5c; }
+
+    /* 向下滑动的提示 */
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      color: var(--text-faint);
+      font-size: 12.5px;
+      letter-spacing: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: hint 2s ease-in-out infinite;
+    }
+    .scroll-hint svg { width: 16px; height: 16px; }
+    @keyframes hint {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.85; }
+      50%      { transform: translate(-50%, 8px); opacity: 0.4; }
+    }
+
+    /* ============ 博客区（独立于资料卡） ============ */
+    .blog-section { padding: 20px 16px 70px; scroll-margin-top: calc(var(--band-h) + 16px); }
+    .blog-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 38px 38px 44px;
+    }
+    .blog-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .blog-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(120deg, var(--accent-2), var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .blog-count { color: var(--text-faint); font-size: 13px; }
+    .status { color: var(--text-faint); font-size: 14px; text-align: center; padding: 26px 0; }
+
+    .post-list { list-style: none; display: flex; flex-direction: column; gap: 22px; }
+    .post-card {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      border-radius: 20px;
+      box-shadow: 0 8px 22px -12px rgba(80, 90, 160, 0.22);
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .post-card:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -14px rgba(80, 90, 160, 0.35); }
+    .post-card a { display: block; color: inherit; text-decoration: none; }
+
+    /* 头图位 */
+    .cover { aspect-ratio: 4.4 / 1; background: #e9ebf5; }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover-ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(120deg, #7b8ff0 0%, var(--accent-2) 52%, var(--accent-3) 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .cover-ph svg { width: 34px; height: 34px; }
+
+    .post-body { padding: 18px 24px 20px; }
+    .post-title { font-size: 19px; font-weight: 700; letter-spacing: 0.3px; }
+    .post-meta {
+      margin-top: 8px; color: var(--text-faint); font-size: 13px;
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    }
+    .post-desc { margin-top: 8px; color: var(--text-soft); font-size: 14px; }
+    .post-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      font-size: 12px; font-weight: 600;
+      color: var(--accent-2);
+      background: rgba(118, 75, 162, 0.1);
+      padding: 3px 10px; border-radius: 999px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-faint);
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      padding: 0 16px 34px;
+    }
+
+    /* ============ 深色模式 ============ */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1118;
+        --glass-bg: rgba(15, 17, 24, 0.6);
+        --glass-line: rgba(255, 255, 255, 0.08);
+        --card: rgba(23, 26, 38, 0.75);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text: #eef0f7;
+        --text-soft: #a7adc0;
+        --text-faint: #666c7e;
+        --rule: rgba(160, 174, 255, 0.18);
+        --btn-bg: rgba(255, 255, 255, 0.06);
+        --btn-border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 24px 70px -18px rgba(0, 0, 0, 0.6);
+      }
+      .name {
+        background: linear-gradient(120deg, #ffffff, var(--accent-1) 55%, var(--accent-3));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .btn.github:hover   { color: #ffffff; border-color: #ffffff; }
+      .btn.tangible:hover { color: #ffffff; border-color: #ffffff; }
+      .tag { background: rgba(160, 174, 255, 0.14); color: #c3c9ff; }
+      .cover { background: #1a1d29; }
+      .glass { border-bottom-color: rgba(255, 255, 255, 0.08); }
+    }
+
+    /* ============ 小屏 ============ */
+    @media (max-width: 620px) {
+      .profile { padding: 40px 22px 34px; }
+      .pf-avatar { width: 128px; height: 128px; }
+      .name { font-size: 28px; }
+      /* 一行放不下时允许换行 */
+      .link-list { flex-wrap: wrap; }
+      .blog-card { padding: 26px 18px 32px; }
+      .scroll-hint { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <!-- 顶部毛玻璃区域 -->
+  <header class="glass" id="glass">
+    <div class="glass-inner">
+      <button class="mini" id="mini" type="button" title="回到顶部">
+        <img src="assets/xiaotang27-logo.webp" alt="" />
+        <span class="mini-text">
+          <span class="mini-name">Xiaotang27</span>
+          <span class="mini-slogan">丢掉幻想，准备斗争</span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 首屏：个人资料卡（初始位于页面正中） -->
+  <section class="hero">
+    <div class="profile" id="profile">
+      <!-- ★ 昵称 / Slogan：改下面两行；头像换图改 src -->
+      <img class="pf-avatar" src="assets/xiaotang27-logo.webp" alt="Xiaotang27 的头像" />
+      <h1 class="name">Xiaotang27</h1>
+      <p class="slogan">丢掉幻想，准备斗争</p>
+
+      <nav class="links" aria-label="其他站点">
+        <ul class="link-list">
+          <!-- 每个按钮：改 <a> 的 href -->
+          <li>
+            <a class="btn github" href="https://github.com/xiaotang27" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a class="btn bili" href="https://space.bilibili.com/1473734923" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+              哔哩哔哩
+            </a>
+          </li>
+          <li>
+            <a class="btn tangible" href="https://tangible.xiaotang27.top" target="_blank" rel="noopener noreferrer" aria-label="TangibleCraft">
+              <span class="badge"><img src="assets/tangible-logo.png" alt="TangibleCraft" /></span>
+              TangibleCraft
+            </a>
+          </li>
+          <li>
+            <a class="btn modrinth" href="https://modrinth.com/organization/trtimc" target="_blank" rel="noopener noreferrer" aria-label="Modrinth">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg>
+              Modrinth
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>向下滑动</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- 博客区：与资料卡分离，下滑后出现 -->
+  <section class="blog-section" id="blog">
+    <div class="blog-card">
+      <div class="blog-head">
+        <h2 class="blog-title">博客</h2>
+        <span class="blog-count">共 <span id="postCount">–</span> 篇 · 按发布先后</span>
+      </div>
+      <div class="status" id="status">正在加载文章…</div>
+      <ul class="post-list" id="postList"></ul>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year">2025</span> Xiaotang27 · 保留所有权利
+  </footer>
+
+  <script src="assets/markdown.js"></script>
+  <script>
+    (function () {
+      var BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      function lastModifiedDate(res) {
+        var lm = res && res.headers && res.headers.get('Last-Modified');
+        if (!lm) return '';
+        var d = new Date(lm);
+        return isNaN(d) ? '' : d.toISOString().slice(0, 10);
+      }
+
+      /* ---------- 博客加载（逻辑与文章页一致） ---------- */
+      function loadPosts() {
+        return fetch('posts/index.json')
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function (data) {
+            var posts = (data.posts || []).slice();
+            return Promise.all(posts.map(function (p) {
+              return fetch('posts/' + encodeURIComponent(p.slug) + '.md')
+                .then(function (res) {
+                  var d = lastModifiedDate(res);
+                  return res.text().then(function (md) {
+                    p.date = p.date || d;
+                    p.words = countWords(md);
+                    p.readMin = readMinutes(p.words);
+                    return p;
+                  });
+                })
+                .catch(function () { p.words = 0; p.readMin = 1; return p; });
+            }));
+          })
+          .then(function (posts) {
+            posts.sort(function (a, b) {
+              if ((b.date || '') !== (a.date || '')) return (b.date || '').localeCompare(a.date || '');
+              return 0;
+            });
+            return posts;
+          });
+      }
+
+      function card(p, i) {
+        var cover;
+        if (p.cover) {
+          cover = '<img src="' + esc(p.cover) + '" alt="" loading="lazy" />';
+        } else {
+          cover = '<div class="cover-ph">' + BOOK + '</div>';
+        }
+        var metaBits = [
+          '<span>发布于 ' + (p.date || '未知') + '</span>',
+          '<span>约 ' + formatWords(p.words) + '</span>',
+          '<span>约 ' + p.readMin + ' 分钟</span>'
+        ];
+        var tags = (p.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('');
+        return (
+          '<li class="post-card" style="animation:rise .6s ease both;animation-delay:' + (i * 70) + 'ms">' +
+            '<a href="blog/post.html?post=' + encodeURIComponent(p.slug) + '">' +
+              '<div class="cover">' + cover + '</div>' +
+              '<div class="post-body">' +
+                '<h3 class="post-title">' + esc(p.title) + '</h3>' +
+                '<div class="post-meta">' + metaBits.join('<span>·</span>') + '</div>' +
+                (p.desc ? '<p class="post-desc">' + esc(p.desc) + '</p>' : '') +
+                (tags ? '<div class="post-tags">' + tags + '</div>' : '') +
+              '</div>' +
+            '</a>' +
+          '</li>'
+        );
+      }
+
+      loadPosts()
+        .then(function (posts) {
+          document.getElementById('status').style.display = 'none';
+          document.getElementById('postCount').textContent = posts.length;
+          document.getElementById('postList').innerHTML = posts.map(card).join('');
+        })
+        .catch(function (err) {
+          document.getElementById('status').textContent =
+            '文章加载失败：' + err.message +
+            '。博客需要读取本地文件，请用 HTTP 服务访问（例如 python -m http.server），或部署后浏览。';
+        });
+
+      /* ---------- 毛玻璃联动：资料卡完全进入顶栏后显示迷你卡 ---------- */
+      var glass = document.getElementById('glass');
+      var mini = document.getElementById('mini');
+      var profile = document.getElementById('profile');
+      var bandH = 64;
+
+      function onScroll() {
+        var rect = profile.getBoundingClientRect();
+        // 资料卡顶边进入顶栏底边之下 -> 视为已完全进入毛玻璃区域
+        var fullyIn = rect.bottom <= bandH;
+        glass.classList.toggle('is-active', fullyIn);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      mini.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      var yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>

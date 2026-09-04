@@ -12,8 +12,7 @@
 │   ├─ markdown.js   # 轻量 Markdown 渲染器 + 字数统计
 │   ├─ xiaotang27-logo.webp   # 头像
 │   └─ tangible-logo.png      # Tangible 标志
-├─ blog/
-│   └─ post.html     # 文章模板（读取 Markdown）
+├─ post.html        # 文章模板（读取 Markdown，含头图位）
 └─ posts/
     ├─ index.json    # 文章清单（标题、简介、标签……）
     └─ *.md          # 文章正文

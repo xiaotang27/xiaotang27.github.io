@@ -16,14 +16,13 @@
 │   ├─ tangible-logo.png      # Tangible 标志（TangibleCraft 按钮图标）
 │   ├─ blog.css               # 博客样式（文章页）
 │   └─ markdown.js            # Markdown 渲染器 + 字数统计/阅读时长（零依赖）
-├─ blog/
-│   └─ post.html              # 文章模板（读取 posts/*.md 并渲染，含头图位）
+├─ post.html                  # 文章模板（读取 posts/*.md 并渲染，含头图位）
 └─ posts/
     ├─ index.json             # 文章清单（slug / title / desc / tags，可选 date、cover）
     └─ *.md                   # 文章正文
 ```
 
-文章卡片直接展示在主页；点击进入 `blog/post.html?post=slug`。
+文章卡片直接展示在主页；点击进入 `post.html?post=slug`。
 
 ## 如何改成你自己的
 

@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Xiaotang27 的博客文章。" />
   <title>文章 · Xiaotang27</title>
-  <link rel="icon" type="image/webp" href="../xiaotang27-logo.webp" />
-  <link rel="icon" type="image/png" href="../favicon.png" />
-  <link rel="stylesheet" href="../assets/blog.css" />
+  <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="assets/blog.css" />
 </head>
 <body>
   <div class="page">
     <header class="topbar">
-      <a class="brand" href="../index.html">
-        <img src="../assets/xiaotang27-logo.webp" alt="Xiaotang27" />
+      <a class="brand" href="index.html">
+        <img src="assets/xiaotang27-logo.webp" alt="Xiaotang27" />
         <span>
           <span class="brand-name">Xiaotang27</span><br />
           <span class="brand-sub">丢 掉 幻 想 · 准 备 斗 争</span>
         </span>
       </a>
-      <a class="btn-back" href="../index.html">← 主页</a>
+      <a class="btn-back" href="index.html">← 主页</a>
     </header>
 
     <div class="status" id="status">正在加载文章…</div>
@@ -41,12 +41,12 @@
       <article class="article" id="content"></article>
 
       <footer class="post-footer">
-        <a href="../index.html">← 返回主页</a>
+        <a href="index.html">← 返回主页</a>
       </footer>
     </div>
   </div>
 
-  <script src="../assets/markdown.js"></script>
+  <script src="assets/markdown.js"></script>
   <script>
     (function () {
       var BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
@@ -71,8 +71,8 @@
       if (!slug) { fail('缺少 ?post= 参数'); return; }
 
       Promise.all([
-        fetch('../posts/index.json').then(function (r) { return r.ok ? r.json() : null; }),
-        fetch('../posts/' + encodeURIComponent(slug) + '.md').then(function (r) {
+        fetch('posts/index.json').then(function (r) { return r.ok ? r.json() : null; }),
+        fetch('posts/' + encodeURIComponent(slug) + '.md').then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.text();
         })
@@ -100,7 +100,7 @@
         if (meta && meta.cover) {
           var src = (meta.cover.indexOf('http') === 0 || meta.cover.charAt(0) === '/')
             ? meta.cover
-            : '../' + meta.cover;
+            : '' + meta.cover;
           coverEl.innerHTML = '<img src="' + src + '" alt="' + (meta.title || '') + '" />';
         } else {
           coverEl.classList.add('placeholder');

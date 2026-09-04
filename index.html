@@ -511,7 +511,7 @@
         var tags = (p.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('');
         return (
           '<li class="post-card" style="animation:rise .6s ease both;animation-delay:' + (i * 70) + 'ms">' +
-            '<a href="blog/post.html?post=' + encodeURIComponent(p.slug) + '">' +
+            '<a href="post.html?post=' + encodeURIComponent(p.slug) + '">' +
               '<div class="cover">' + cover + '</div>' +
               '<div class="post-body">' +
                 '<h3 class="post-title">' + esc(p.title) + '</h3>' +

@@ -3,9 +3,180 @@
     {
       "slug": "hello-world",
       "title": "你好，世界",
-      "desc": "站点开张的第一篇随笔，聊聊为什么要搭这个站。",
+      "desc": "重构后的一则公告。",
       "cover": "posts/covers/4R2A1972.JPG",
-      "tags": ["随笔"]
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "6",
+      "title": "6",
+      "date": "2023-02-14",
+      "desc": "真的6 回家半路上车掉链子 甚至还断掉了 链子直接躺路上 直接徒步回家😅 1.5km你让我怎么走啊😅",
+      "tags": []
+    },
+    {
+      "slug": "FEDytnhAO",
+      "title": "炸鱼",
+      "date": "2024-02-15",
+      "desc": "单纯炸鱼表明我还活着（）",
+      "tags": []
+    },
+    {
+      "slug": "L2PFKrpcNZ",
+      "title": "全新升级？",
+      "date": "2026-01-06",
+      "desc": "成功的买了一个域名并且部署了ssl证书。 算是实现儿时梦想了（？",
+      "tags": []
+    },
+    {
+      "slug": "LXsFvp0B1",
+      "title": "流放岭南！",
+      "date": "2024-07-27",
+      "desc": "大概是打算去坎通和深圳",
+      "tags": []
+    },
+    {
+      "slug": "URegI9Mic",
+      "title": "要考试力",
+      "date": "2023-05-15",
+      "desc": "自现在起的29天后是考试，所以这段时间退网，不会发视频和追加什么的 当然后面更新频率要看我的分数和老母亲的意见 不过这个…",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "about",
+      "title": "关于",
+      "date": "2019-01-25",
+      "desc": "> 你好！这里是Xiaotang27的网站！",
+      "tags": [
+        "关于"
+      ]
+    },
+    {
+      "slug": "bu-gui-lu-de-zuo-xi-zhen-de-yao-ming",
+      "title": "不规律的作息真的要命",
+      "date": "2023-02-14",
+      "desc": "四点睡，六点起，阎王夸我好身体 icu里喝小米真的很安逸",
+      "tags": []
+    },
+    {
+      "slug": "build-static-site",
+      "title": "用纯静态搭建个人站点",
+      "desc": "用纯静态搭建个人站点",
+      "tags": [
+        "技术"
+      ]
+    },
+    {
+      "slug": "ce-shi-wen-zhang",
+      "title": "测试文章",
+      "date": "2022-09-29",
+      "desc": "这只是一个测试文章 By Xiaotang27",
+      "tags": []
+    },
+    {
+      "slug": "chou-zuo-wen",
+      "title": "臭作文",
+      "date": "2022-10-02",
+      "desc": "今天写个作文，电脑上打草稿 写到一半： 514字，你是一个一个一个作文啊（悲",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "diary-1",
+      "title": "我的日记：博客站终于营业辣！",
+      "date": "2022-09-29",
+      "desc": "今天是值得纪念的日子",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "fu-lou",
+      "title": "服喽",
+      "date": "2023-02-12",
+      "desc": "我靠怎么他妈老push不上去啊我爱你github明天就开学了我还有观后感没写",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "jiao-cheng-xiang-blockbench-zhong-lie-che-zhuan-xiang-jia-de-zhi-zuo",
+      "title": "【教程向】blockbench中列车转向架的制作",
+      "date": "2022-09-30",
+      "desc": "前排提示：本博客也在MTRBBS中同步发布 在MTR模组更新资源包创建工具后，使用自己的模型制作列车追加更加方便。但是用…",
+      "tags": [
+        "技术"
+      ]
+    },
+    {
+      "slug": "qing-ren-jie-jiu-wo-yi-ge-kan-bie-ren-sa-gou-liang-de-ma",
+      "title": "情人节就我一个看别人撒狗粮的吗？",
+      "date": "2023-02-14",
+      "desc": "情人节就我一个看别人撒狗粮的吗？情人节就我一个看别人撒狗粮的吗？情人节就我一个看别人撒狗粮的吗？情人节就我一个看别人撒狗…",
+      "tags": []
+    },
+    {
+      "slug": "ri-chang-orwo-zhe-ji-tian-xiao-shi-du-gan-ma-qu-liao",
+      "title": "日常｜我这几天消失都干嘛去了？",
+      "date": "2023-03-12",
+      "desc": "ok，回来了，最近几天甚至电脑都没碰，除了学习原因，还有一点就是我中招了，最近的甲流。甲流在近些天还闹的很凶猛，所以这里…",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "suo-sui-de-mo-zu-kai-fa-ji-lu",
+      "title": "琐碎的模组开发记录",
+      "date": "2022-09-29",
+      "desc": "最近正在做一个新的模组",
+      "tags": [
+        "技术"
+      ]
+    },
+    {
+      "slug": "tLoiTFo19",
+      "title": "回来了，但也没有回来",
+      "date": "2023-09-04",
+      "desc": "上次在这里还是大概四个月前，因为考试原因停更了很久。现在回来已经是新一个学期的开学了。目前我在初二，大概一年后也就要会考…",
+      "tags": [
+        "技术"
+      ]
+    },
+    {
+      "slug": "tangible-craft-notes",
+      "title": "TangibleCraft 项目笔记",
+      "desc": "TangibleCraft 项目笔记",
+      "tags": []
+    },
+    {
+      "slug": "tian-jin-kai-xue-di-san-tian-chu-zhong-shi-zai-tai-lei-de",
+      "title": "天津开学第三天，初中是在太累的",
+      "date": "2022-10-10",
+      "desc": "今天已经是天津开学的第三天了。这几天我感受到的只有一个字——累！",
+      "tags": [
+        "随笔"
+      ]
+    },
+    {
+      "slug": "xiaotang27-wang-zhan-geng-xin-ri-zhi",
+      "title": "Xiaotang27网站更新日志",
+      "date": "2022-10-25",
+      "desc": "本文将会持续记录网站的更新情况。 - 22.10.25:新增友情链接「Xiaotang27‘s blog」",
+      "tags": [
+        "更新"
+      ]
+    },
+    {
+      "slug": "zai-ye-bu-xiang-xian-shang-xian-xia-ke-yi-qi-shang-liao",
+      "title": "再也不想线上线下课一起上了",
+      "date": "2022-10-25",
+      "desc": "是的，我家被管控，三天不能出门了，三天啊，三天（悲 然后第二天捏，上网课，老师开视频，结果TMD教室的电视出现了我。。。…",
+      "tags": []
     }
   ]
 }

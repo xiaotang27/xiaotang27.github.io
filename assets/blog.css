@@ -162,15 +162,13 @@ body::before {
 .post-footer a { color: var(--text-soft); text-decoration: none; font-size: 14px; font-weight: 600; }
 .post-footer a:hover { color: var(--link); }
 
-/* ---------- 站点页脚（版权 + ICP） ---------- */
+/* ---------- 站点页脚（版权 + ICP）：与主页页脚样式保持一致 ---------- */
 .site-footer {
-  max-width: 760px;
-  margin: -8px auto 0;
-  padding: 0 16px 40px;
   text-align: center;
   color: var(--text-faint);
   font-size: 13px;
   letter-spacing: 0.3px;
+  padding: 0 16px 34px;
   line-height: 1.9;
 }
 .site-footer a {
@@ -179,7 +177,7 @@ body::before {
   border-bottom: 1px dotted rgba(155, 160, 176, 0.6);
   transition: color 0.2s ease;
 }
-.site-footer a:hover { color: var(--link); border-bottom-color: transparent; }
+.site-footer a:hover { color: var(--accent-1); border-bottom-color: transparent; }
 
 /* ---------- 深色模式 ---------- */
 @media (prefers-color-scheme: dark) {

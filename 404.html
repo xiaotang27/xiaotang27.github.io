@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="页面不存在 - Xiaotang27" />
+  <title>404 · 页面不存在 · Xiaotang27</title>
+  <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="assets/blog.css" />
+  <style>
+    /* 与博客模板同风格的 404 内容区 */
+    .nf {
+      min-height: calc(100svh - 200px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 0;
+    }
+    .nf-code {
+      font-size: 104px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 6px;
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2) 55%, var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nf-title {
+      margin-top: 14px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .nf-desc {
+      margin-top: 10px;
+      color: var(--text-soft);
+      font-size: 15px;
+    }
+    .nf-actions {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .nf-actions .btn-back {
+      padding: 11px 24px;
+      font-size: 14.5px;
+      border-radius: 999px;
+      color: var(--text);
+    }
+    .nf-actions .btn-primary {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      border: none;
+    }
+    .nf-actions .btn-primary:hover { color: #fff; }
+    @media (max-width: 480px) {
+      .nf-code { font-size: 76px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <img src="assets/xiaotang27-logo.webp" alt="Xiaotang27" />
+        <span>
+          <span class="brand-name">Xiaotang27</span><br />
+          <span class="brand-sub">丢 掉 幻 想 · 准 备 斗 争</span>
+        </span>
+      </a>
+      <a class="btn-back" href="index.html">← 主页</a>
+    </header>
+
+    <div class="nf">
+      <div class="nf-code" aria-hidden="true">404</div>
+      <h1 class="nf-title">页面不存在</h1>
+      <p class="nf-desc">已观测到棍木</p>
+      <div class="nf-actions">
+        <a class="btn-back btn-primary" href="index.html">← 返回主页</a>
+        <a class="btn-back" href="index.html#blog">去博客看看</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -7,6 +7,9 @@
 ```
 ├─ index.html                 # 主页：顶部毛玻璃区域；首屏正中为圆形头像+昵称/Slogan+单行按钮的资料卡，
 │                             #       下滑后出现独立博客卡片区；资料卡完全进入顶栏后顶栏淡入迷你资料卡（圆形头像+昵称+小号Slogan）
+├─ 404.html                   # 自定义 404（沿用博客模板风格）
+├─ xiaotang27-logo.webp       # 根目录副本：全部页面浏览器标签页图标（favicon）统一用此 logo
+├─ favicon.png                # PNG 兜底 favicon（老浏览器不支持 webp 图标时使用，由 logo 生成）
 ├─ avatar.svg                 # favicon
 ├─ assets/
 │   ├─ xiaotang27-logo.webp   # 头像

@@ -414,6 +414,63 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ============ 主题切换：data-theme 适配 ============ */
+    html[data-theme='light'] {
+      color-scheme: light;
+      --bg: #f5f6fb;
+      --glass-bg: rgba(255, 255, 255, 0.6);
+      --glass-line: rgba(28, 32, 48, 0.08);
+      --card: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(255, 255, 255, 0.9);
+      --text: #1c2030;
+      --text-soft: #5b6472;
+      --text-faint: #9aa1b0;
+      --btn-bg: #ffffff;
+      --btn-border: #e6e8f2;
+      --shadow: 0 24px 70px -18px rgba(88, 96, 170, 0.3);
+      --accent-1: #667eea;
+      --accent-2: #764ba2;
+      --accent-3: #f093fb;
+      --badge-bg: #ffffff;
+    }
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --bg: #0f1118;
+      --glass-bg: rgba(15, 17, 24, 0.6);
+      --glass-line: rgba(255, 255, 255, 0.08);
+      --card: rgba(23, 26, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #eef0f7;
+      --text-soft: #a7adc0;
+      --text-faint: #666c7e;
+      --btn-bg: rgba(255, 255, 255, 0.06);
+      --btn-border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 24px 70px -18px rgba(0, 0, 0, 0.6);
+      --badge-bg: #ffffff;
+    }
+    html[data-theme='light'] .name {
+      background: linear-gradient(120deg, #23283a, var(--accent-2) 60%, var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    html[data-theme='dark'] .name {
+      background: linear-gradient(120deg, #ffffff, var(--accent-1) 55%, var(--accent-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    html[data-theme='light'] .btn.github:hover   { color: #24292f; border-color: #24292f; }
+    html[data-theme='light'] .btn.tangible:hover { color: #111111; border-color: #111111; }
+    html[data-theme='dark'] .btn.github:hover   { color: #ffffff; border-color: #ffffff; }
+    html[data-theme='dark'] .btn.tangible:hover { color: #ffffff; border-color: #ffffff; }
+    html[data-theme='light'] .glass-nav a:hover { background: rgba(102, 126, 234, 0.1); color: var(--text); }
+    html[data-theme='dark'] .glass-nav a:hover { background: rgba(160, 174, 255, 0.12); color: #fff; }
+    html[data-theme='light'] .tag { background: rgba(118, 75, 162, 0.1); color: var(--accent-2); }
+    html[data-theme='dark'] .tag { background: rgba(160, 174, 255, 0.14); color: #c3c9ff; }
+    html[data-theme='light'] .cover { background: #e9ebf5; }
+    html[data-theme='dark'] .cover { background: #1a1d29; }
   </style>
 </head>
 <body>
@@ -620,5 +677,6 @@
   </script>
 
   <script src="assets/backtop.js"></script>
+  <script src="assets/theme.js"></script>
 </body>
 </html>

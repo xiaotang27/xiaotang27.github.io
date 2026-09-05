@@ -387,3 +387,18 @@ body { padding-top: 64px; }
 @media (max-width: 760px) {
   .friends { grid-template-columns: 1fr; }
 }
+
+/* ============ 友链页：友链交换事项 ============ */
+.fw-card {
+  margin-top: 26px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 20px -12px rgba(80, 90, 160, 0.25);
+}
+.fw-title { font-size: 17px; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px; }
+.fw-card p { margin: 0 0 10px; color: var(--text-soft); font-size: 14.5px; line-height: 1.9; }
+.fw-card p:last-child { margin-bottom: 0; }
+.fw-card a { color: var(--accent-1); text-decoration: none; }
+.fw-card a:hover { text-decoration: underline; }

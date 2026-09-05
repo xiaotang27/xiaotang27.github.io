@@ -65,25 +65,33 @@
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="topbar">
-      <a class="brand" href="index.html">
-        <img src="assets/xiaotang27-logo.webp" alt="Xiaotang27" />
+  <!-- 顶部毛玻璃区域：时刻显示 -->
+  <header class="glass">
+    <div class="glass-inner">
+      <a class="glass-brand" href="index.html">
+        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
         <span>
-          <span class="brand-name">Xiaotang27</span><br />
-          <span class="brand-sub">丢 掉 幻 想 · 准 备 斗 争</span>
+          <span class="gb-name">Xiaotang27</span>
+          <span class="gb-sub">丢掉幻想，准备斗争</span>
         </span>
       </a>
-      <a class="btn-back" href="index.html">← 主页</a>
-    </header>
+      <nav class="glass-nav" aria-label="站点导航">
+        <a href="index.html">主页</a>
+        <a href="blog.html">博客</a>
+        <a href="friends.html">友链</a>
+        <a href="post.html?post=about">关于</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="page">
     <div class="nf">
       <div class="nf-code" aria-hidden="true">404</div>
       <h1 class="nf-title">页面不存在</h1>
       <p class="nf-desc">已观测到棍木</p>
       <div class="nf-actions">
         <a class="btn-back btn-primary" href="index.html">← 返回主页</a>
-        <a class="btn-back" href="index.html#blog">去博客看看</a>
+        <a class="btn-back" href="blog.html">去博客看看</a>
       </div>
     </div>
   </div>

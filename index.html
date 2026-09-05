@@ -9,7 +9,6 @@
   <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
-    /* ============ 基础 ============ */
     :root {
       --bg: #f5f6fb;
       --glass-bg: rgba(255, 255, 255, 0.6);
@@ -19,7 +18,6 @@
       --text: #1c2030;
       --text-soft: #5b6472;
       --text-faint: #9aa1b0;
-      --rule: rgba(102, 126, 234, 0.16);
       --btn-bg: #ffffff;
       --btn-border: #e6e8f2;
       --shadow: 0 24px 70px -18px rgba(88, 96, 170, 0.3);
@@ -29,10 +27,8 @@
       --badge-bg: #ffffff;
       --band-h: 64px;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
         "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
@@ -71,7 +67,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ============ 顶部毛玻璃区域 ============ */
+    /* ============ 顶部毛玻璃区域（时刻显示：品牌 + 导航） ============ */
     .glass {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -89,36 +85,35 @@
       padding: 0 22px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-
-    /* 迷你资料卡：默认隐藏，资料卡片完全进入毛玻璃区域后淡入 */
-    .mini {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      opacity: 0;
-      transform: translateY(6px);
-      visibility: hidden;
-      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-      cursor: pointer;
-      user-select: none;
-      background: none;
-      border: none;
-      font-family: inherit;
-      color: inherit;
-      padding: 0;
-    }
-    .glass.is-active .mini { opacity: 1; transform: translateY(0); visibility: visible; }
-    .mini img {
-      width: 42px; height: 42px;
+    .glass-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .glass-brand img {
+      width: 36px; height: 36px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 4px 12px -3px rgba(80, 90, 160, 0.4);
+      box-shadow: 0 4px 12px -3px rgba(80, 90, 160, 0.35);
     }
-    .mini-text { display: flex; flex-direction: column; line-height: 1.25; text-align: left; }
-    .mini-name { font-size: 16px; font-weight: 800; letter-spacing: .3px; }
-    .mini-slogan { font-size: 12px; color: var(--text-soft); margin-top: 2px; letter-spacing: 1px; }
+    .gb-name { font-size: 16px; font-weight: 800; letter-spacing: 0.3px; line-height: 1.2; display: block; }
+    .gb-sub { font-size: 11px; color: var(--text-soft); letter-spacing: 1px; display: block; margin-top: 2px; line-height: 1.2; }
+    .glass-nav { display: flex; align-items: center; gap: 6px; }
+    .glass-nav a {
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .glass-nav a:hover { color: var(--text); background: rgba(102, 126, 234, 0.1); }
+    .glass-nav a[aria-current="page"] {
+      color: #fff;
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      box-shadow: 0 6px 16px -6px rgba(102, 126, 234, 0.7);
+    }
 
     /* ============ 首屏：个人资料卡（垂直居中） ============ */
     .hero {
@@ -129,7 +124,6 @@
       justify-content: center;
       padding: calc(var(--band-h) + 24px) 16px 48px;
     }
-
     .profile {
       width: min(94vw, 680px);
       background: var(--card);
@@ -142,8 +136,6 @@
       text-align: center;
       animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-
-    /* 圆形头像（不拉伸） */
     .pf-avatar {
       width: 148px; height: 148px;
       margin: 0 auto;
@@ -154,7 +146,6 @@
       transition: transform 0.35s ease;
     }
     .pf-avatar:hover { transform: scale(1.05); }
-
     .name {
       margin-top: 24px;
       font-size: 34px;
@@ -164,7 +155,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      color: var(--text); /* 兜底 */
+      color: var(--text);
     }
     .slogan {
       margin-top: 10px;
@@ -173,8 +164,6 @@
       line-height: 1.6;
       letter-spacing: 2px;
     }
-
-    /* 按钮：全部同一行 */
     .links { margin-top: 32px; }
     .link-list {
       list-style: none;
@@ -196,8 +185,7 @@
       font-weight: 600;
       text-decoration: none;
       box-shadow: 0 3px 10px -4px rgba(80, 90, 160, 0.18);
-      transition: transform 0.22s ease, box-shadow 0.22s ease,
-                  color 0.22s ease, border-color 0.22s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, color 0.22s ease, border-color 0.22s ease;
     }
     .btn svg { width: 16px; height: 16px; display: block; }
     .badge {
@@ -211,17 +199,14 @@
       overflow: hidden;
     }
     .badge img { width: 13px; height: 13px; object-fit: contain; display: block; }
-
     .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -8px rgba(80, 90, 160, 0.35); }
     .btn:active { transform: translateY(0); }
     .btn:focus-visible { outline: 2px solid var(--accent-1); outline-offset: 3px; }
-
     .btn.github:hover   { color: #24292f; border-color: #24292f; }
     .btn.bili:hover     { color: #fb7299; border-color: #fb7299; }
     .btn.tangible:hover { color: #111111; border-color: #111111; }
     .btn.modrinth:hover { color: #00af5c; border-color: #00af5c; }
 
-    /* 向下滑动的提示 */
     .scroll-hint {
       position: absolute;
       left: 50%;
@@ -242,8 +227,8 @@
       50%      { transform: translate(-50%, 8px); opacity: 0.4; }
     }
 
-    /* ============ 博客区（独立于资料卡） ============ */
-    .blog-section { padding: 20px 16px 70px; scroll-margin-top: calc(var(--band-h) + 16px); }
+    /* ============ 博客区（最近 5 篇） ============ */
+    .blog-section { padding: 20px 16px 20px; scroll-margin-top: calc(var(--band-h) + 16px); }
     .blog-card {
       max-width: 760px;
       margin: 0 auto;
@@ -253,7 +238,7 @@
       border: 1px solid var(--card-border);
       border-radius: 28px;
       box-shadow: var(--shadow);
-      padding: 38px 38px 44px;
+      padding: 38px 38px 40px;
     }
     .blog-head {
       display: flex;
@@ -261,6 +246,7 @@
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
     .blog-title {
       font-size: 24px;
@@ -273,7 +259,6 @@
     }
     .blog-count { color: var(--text-faint); font-size: 13px; }
     .status { color: var(--text-faint); font-size: 14px; text-align: center; padding: 26px 0; }
-
     .post-list { list-style: none; display: flex; flex-direction: column; gap: 22px; }
     .post-card {
       background: var(--btn-bg);
@@ -285,8 +270,6 @@
     }
     .post-card:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -14px rgba(80, 90, 160, 0.35); }
     .post-card a { display: block; color: inherit; text-decoration: none; }
-
-    /* 头图位 */
     .cover { aspect-ratio: 4.4 / 1; background: #e9ebf5; }
     .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .cover-ph {
@@ -296,7 +279,6 @@
       color: rgba(255, 255, 255, 0.8);
     }
     .cover-ph svg { width: 34px; height: 34px; }
-
     .post-body { padding: 18px 24px 20px; }
     .post-title { font-size: 19px; font-weight: 700; letter-spacing: 0.3px; }
     .post-meta {
@@ -311,13 +293,64 @@
       background: rgba(118, 75, 162, 0.1);
       padding: 3px 10px; border-radius: 999px;
     }
+    .view-all { margin-top: 24px; text-align: center; }
+    .view-all a {
+      display: inline-block;
+      padding: 9px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-1);
+      text-decoration: none;
+      border: 1px solid rgba(102, 126, 234, 0.4);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .view-all a:hover { background: linear-gradient(120deg, var(--accent-1), var(--accent-2)); color: #fff; border-color: transparent; }
 
+    /* ============ 2028 高考倒计时卡片 ============ */
+    .count-section { padding: 26px 16px 10px; scroll-margin-top: calc(var(--band-h) + 16px); }
+    .count-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 26px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cd-inner { display: flex; align-items: center; justify-content: center; gap: 22px; }
+    .cd-label {
+      color: var(--text-soft);
+      font-size: 14.5px;
+      line-height: 1.9;
+      letter-spacing: 1px;
+      text-align: right;
+      max-width: 230px;
+    }
+    .cd-num {
+      color: #e5484d;
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .cd-unit { font-size: 26px; }
+
+    /* ============ 页脚 ============ */
     footer {
       text-align: center;
       color: var(--text-faint);
       font-size: 13px;
       letter-spacing: 0.3px;
-      padding: 0 16px 34px;
+      padding: 24px 16px 34px;
       line-height: 1.9;
     }
     footer a {
@@ -339,7 +372,6 @@
         --text: #eef0f7;
         --text-soft: #a7adc0;
         --text-faint: #666c7e;
-        --rule: rgba(160, 174, 255, 0.18);
         --btn-bg: rgba(255, 255, 255, 0.06);
         --btn-border: rgba(255, 255, 255, 0.12);
         --shadow: 0 24px 70px -18px rgba(0, 0, 0, 0.6);
@@ -354,7 +386,7 @@
       .btn.tangible:hover { color: #ffffff; border-color: #ffffff; }
       .tag { background: rgba(160, 174, 255, 0.14); color: #c3c9ff; }
       .cover { background: #1a1d29; }
-      .glass { border-bottom-color: rgba(255, 255, 255, 0.08); }
+      .glass-nav a:hover { background: rgba(160, 174, 255, 0.12); color: #fff; }
     }
 
     /* ============ 小屏 ============ */
@@ -362,12 +394,19 @@
       .profile { padding: 40px 22px 34px; }
       .pf-avatar { width: 128px; height: 128px; }
       .name { font-size: 28px; }
-      /* 一行放不下时允许换行 */
       .link-list { flex-wrap: wrap; }
-      .blog-card { padding: 26px 18px 32px; }
+      .blog-card { padding: 26px 18px 30px; }
       .scroll-hint { display: none; }
+      .cd-num { font-size: 46px; }
+      .cd-label { max-width: 170px; font-size: 13.5px; }
+      .count-card { padding: 20px 18px; }
     }
-
+    @media (max-width: 520px) {
+      .glass-inner { padding: 0 12px; }
+      .gb-sub { display: none; }
+      .glass-nav { gap: 2px; }
+      .glass-nav a { padding: 6px 10px; font-size: 13px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -384,30 +423,34 @@
     <div class="blob b3"></div>
   </div>
 
-  <!-- 顶部毛玻璃区域 -->
-  <header class="glass" id="glass">
+  <!-- 顶部毛玻璃区域：时刻显示 -->
+  <header class="glass">
     <div class="glass-inner">
-      <button class="mini" id="mini" type="button" title="回到顶部">
-        <img src="assets/xiaotang27-logo.webp" alt="" />
-        <span class="mini-text">
-          <span class="mini-name">Xiaotang27</span>
-          <span class="mini-slogan">丢掉幻想，准备斗争</span>
+      <a class="glass-brand" href="index.html">
+        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
+        <span>
+          <span class="gb-name">Xiaotang27</span>
+          <span class="gb-sub">丢掉幻想，准备斗争</span>
         </span>
-      </button>
+      </a>
+      <nav class="glass-nav" aria-label="站点导航">
+        <a href="index.html" aria-current="page">主页</a>
+        <a href="blog.html">博客</a>
+        <a href="friends.html">友链</a>
+        <a href="post.html?post=about">关于</a>
+      </nav>
     </div>
   </header>
 
-  <!-- 首屏：个人资料卡（初始位于页面正中） -->
+  <!-- 首屏：个人资料卡 -->
   <section class="hero">
     <div class="profile" id="profile">
-      <!-- ★ 昵称 / Slogan：改下面两行；头像换图改 src -->
       <img class="pf-avatar" src="assets/xiaotang27-logo.webp" alt="Xiaotang27 的头像" />
       <h1 class="name">Xiaotang27</h1>
       <p class="slogan">丢掉幻想，准备斗争</p>
 
       <nav class="links" aria-label="其他站点">
         <ul class="link-list">
-          <!-- 每个按钮：改 <a> 的 href -->
           <li>
             <a class="btn github" href="https://github.com/xiaotang27" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -441,15 +484,28 @@
     </div>
   </section>
 
-  <!-- 博客区：与资料卡分离，下滑后出现 -->
+  <!-- 博客：最近 5 篇 -->
   <section class="blog-section" id="blog">
     <div class="blog-card">
       <div class="blog-head">
         <h2 class="blog-title">博客</h2>
-        <span class="blog-count">共 <span id="postCount">–</span> 篇 · 按发布先后</span>
+        <span class="blog-count">最近 5 篇 · 共 <span id="postCount">–</span> 篇</span>
       </div>
       <div class="status" id="status">正在加载文章…</div>
       <ul class="post-list" id="postList"></ul>
+      <div class="view-all" id="viewAll" style="display:none">
+        <a href="blog.html">查看全部文章 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2028 高考倒计时 -->
+  <section class="count-section" aria-label="高考倒计时">
+    <div class="count-card">
+      <div class="cd-inner">
+        <p class="cd-label">距离 2028 年<br />普通高等学校招生<br />全国统一考试还有</p>
+        <p class="cd-num"><span id="gaokaoDays">–</span><span class="cd-unit">天</span></p>
+      </div>
     </div>
   </section>
 
@@ -476,7 +532,6 @@
         return isNaN(d) ? '' : d.toISOString().slice(0, 10);
       }
 
-      /* ---------- 博客加载（逻辑与文章页一致） ---------- */
       function loadPosts() {
         return fetch('posts/index.json')
           .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
@@ -537,7 +592,8 @@
         .then(function (posts) {
           document.getElementById('status').style.display = 'none';
           document.getElementById('postCount').textContent = posts.length;
-          document.getElementById('postList').innerHTML = posts.map(card).join('');
+          document.getElementById('postList').innerHTML = posts.slice(0, 5).map(card).join('');
+          if (posts.length > 5) document.getElementById('viewAll').style.display = '';
         })
         .catch(function (err) {
           document.getElementById('status').textContent =
@@ -545,24 +601,18 @@
             '。博客需要读取本地文件，请用 HTTP 服务访问（例如 python -m http.server），或部署后浏览。';
         });
 
-      /* ---------- 毛玻璃联动：资料卡完全进入顶栏后显示迷你卡 ---------- */
-      var glass = document.getElementById('glass');
-      var mini = document.getElementById('mini');
-      var profile = document.getElementById('profile');
-      var bandH = 64;
-
-      function onScroll() {
-        var rect = profile.getBoundingClientRect();
-        // 资料卡顶边进入顶栏底边之下 -> 视为已完全进入毛玻璃区域
-        var fullyIn = rect.bottom <= bandH;
-        glass.classList.toggle('is-active', fullyIn);
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-
-      mini.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      /* ---------- 2028 高考倒计时 ---------- */
+      (function () {
+        var target = new Date('2028-06-07T09:00:00+08:00');
+        var el = document.getElementById('gaokaoDays');
+        function tick() {
+          var diff = target.getTime() - Date.now();
+          var days = Math.max(0, Math.ceil(diff / 86400000));
+          el.textContent = days;
+        }
+        tick();
+        setInterval(tick, 60000);
+      })();
 
       var yEl = document.getElementById('year');
       if (yEl) yEl.textContent = new Date().getFullYear();

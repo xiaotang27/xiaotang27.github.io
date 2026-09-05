@@ -206,3 +206,184 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.01ms !important; }
 }
+
+/* ============ 全站毛玻璃顶栏 + 导航 ============ */
+body { padding-top: 64px; }
+.glass {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  border-bottom: 1px solid rgba(28, 32, 48, 0.08);
+}
+.glass-inner {
+  max-width: 1080px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.glass-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+.glass-brand img {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px -3px rgba(80, 90, 160, 0.35);
+}
+.gb-name { font-size: 16px; font-weight: 800; letter-spacing: 0.3px; line-height: 1.2; display: block; }
+.gb-sub { font-size: 11px; color: var(--text-soft); letter-spacing: 1px; display: block; margin-top: 2px; line-height: 1.2; }
+.glass-nav { display: flex; align-items: center; gap: 6px; }
+.glass-nav a {
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color .2s ease, background .2s ease;
+}
+.glass-nav a:hover { color: var(--text); background: rgba(102, 126, 234, 0.10); }
+.glass-nav a[aria-current="page"] {
+  color: #fff;
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 6px 16px -6px rgba(102, 126, 234, 0.7);
+}
+@media (prefers-color-scheme: dark) {
+  .glass { background: rgba(15, 17, 24, 0.6); border-bottom-color: rgba(255, 255, 255, 0.08); }
+  .glass-nav a:hover { background: rgba(160, 174, 255, 0.12); color: #fff; }
+}
+
+/* ============ 独立博客页：左列表（按发布年月分组）+ 右标签 ============ */
+.b-page { max-width: 1060px; margin: 0 auto; padding: 30px 20px 70px; }
+.b-title { font-size: 28px; font-weight: 800; letter-spacing: 1px; margin-top: 8px; }
+.b-sub { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
+.b-main { display: flex; align-items: flex-start; gap: 26px; margin-top: 26px; }
+.b-posts { flex: 1 1 auto; min-width: 0; }
+.b-side {
+  flex: 0 0 230px;
+  position: sticky;
+  top: 84px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
+}
+.b-side-title { font-size: 14px; font-weight: 800; margin-bottom: 12px; letter-spacing: 1px; }
+.tag-list { display: flex; flex-direction: column; gap: 6px; }
+.tag-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.tag-item .tag-count { color: var(--text-faint); font-size: 12px; }
+.tag-item:hover { background: rgba(102, 126, 234, 0.08); color: var(--text); }
+.tag-item.is-active {
+  color: #fff;
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+}
+.tag-item.is-active .tag-count { color: rgba(255, 255, 255, 0.85); }
+
+.b-group { margin-bottom: 26px; }
+.b-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 4px solid var(--accent-1);
+}
+.b-group-title .g-count { color: var(--text-faint); font-size: 12.5px; font-weight: 600; }
+.b-card {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 6px 16px -10px rgba(80, 90, 160, 0.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+  margin-bottom: 12px;
+}
+.b-card:hover { transform: translateY(-2px); box-shadow: 0 12px 22px -12px rgba(80, 90, 160, 0.35); }
+.b-card .bc-title { font-size: 15.5px; font-weight: 700; }
+.b-card .bc-meta { margin-top: 5px; font-size: 12.5px; color: var(--text-faint); display: flex; flex-wrap: wrap; gap: 8px; }
+.b-status { color: var(--text-faint); padding: 30px 0; text-align: center; }
+@media (max-width: 860px) {
+  .b-main { flex-direction: column; }
+  .b-side { flex-basis: auto; width: 100%; position: static; }
+  .tag-list { flex-direction: row; flex-wrap: wrap; }
+  .tag-item { border: 1px solid var(--rule); }
+}
+@media (max-width: 560px) {
+  .glass-inner { padding: 0 12px; }
+  .gb-sub { display: none; }
+  .glass-nav { gap: 2px; }
+  .glass-nav a { padding: 6px 10px; font-size: 13px; }
+}
+
+/* ============ 友链页：卡片（一行两个） ============ */
+.friends {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.friend {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 0;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 8px 20px -12px rgba(80, 90, 160, 0.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.friend:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -14px rgba(80, 90, 160, 0.4); }
+.friend .f-avatar {
+  flex: 0 0 58px;
+  width: 58px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2) 60%, var(--accent-3));
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  box-shadow: 0 8px 18px -8px rgba(88, 96, 170, 0.5);
+}
+.friend .f-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.friend .f-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.friend .f-name { font-size: 16px; font-weight: 700; }
+.friend .f-slogan { margin-top: 4px; font-size: 13px; color: var(--text-soft); line-height: 1.6; word-break: break-word; }
+.friend .f-arrow { align-self: center; color: var(--text-faint); font-size: 17px; flex: 0 0 auto; }
+@media (max-width: 760px) {
+  .friends { grid-template-columns: 1fr; }
+}

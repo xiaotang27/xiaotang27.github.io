@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Xiaotang27 的友情链接。" />
+  <title>友链 · Xiaotang27</title>
+  <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="assets/blog.css" />
+</head>
+<body>
+  <!-- 顶部毛玻璃区域：时刻显示 -->
+  <header class="glass">
+    <div class="glass-inner">
+      <a class="glass-brand" href="index.html">
+        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
+        <span>
+          <span class="gb-name">Xiaotang27</span>
+          <span class="gb-sub">丢掉幻想，准备斗争</span>
+        </span>
+      </a>
+      <nav class="glass-nav" aria-label="站点导航">
+        <a href="index.html">主页</a>
+        <a href="blog.html">博客</a>
+        <a href="friends.html" aria-current="page">友链</a>
+        <a href="post.html?post=about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="b-page">
+    <h1 class="b-title">友链</h1>
+    <p class="b-sub">与朋友们的链接。想交换友链欢迎留言。</p>
+
+    <!--
+      ★ 友链列表：直接改下面 FRIENDS 数组。
+      avatar 留空则显示首字母头像；也可以填图片 URL。
+    -->
+    <div class="friends" id="friends"></div>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
+    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  </footer>
+
+  <script>
+    (function () {
+      var FRIENDS = [
+        { name: 'MisakaAkio', slogan: '不努力就只能听到别人的好消息', url: 'https://www.akio.top/', avatar: 'https://webstatic.blueakio.com/dynamic/user/NiuBoss123.jpg' },
+        { name: 'MTRBBS', slogan: '我的世界铁路中文社区', url: 'https://www.mtrbbs.top', avatar: '' },
+        { name: 'jonathanqwq', slogan: '一位同学的小博客', url: 'https://jonathanqwq.github.io', avatar: '' }
+      ];
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      var html = FRIENDS.map(function (f) {
+        var av = f.avatar
+          ? '<img src="' + esc(f.avatar) + '" alt="" />'
+          : esc((f.name || '?').trim().charAt(0).toUpperCase());
+        return (
+          '<a class="friend" href="' + esc(f.url) + '" target="_blank" rel="noopener noreferrer">' +
+            '<span class="f-avatar">' + av + '</span>' +
+            '<span class="f-info">' +
+              '<span class="f-name">' + esc(f.name) + '</span>' +
+              '<span class="f-slogan">' + esc(f.slogan) + '</span>' +
+            '</span>' +
+            '<span class="f-arrow" aria-hidden="true">↗</span>' +
+          '</a>'
+        );
+      }).join('');
+      document.getElementById('friends').innerHTML = html || '<div class="b-status">暂无友链。</div>';
+
+      var yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+  <script src="assets/backtop.js"></script>
+</body>
+</html>

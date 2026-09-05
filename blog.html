@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Xiaotang27 的博客归档：按发布年月分组，可按标签查找。" />
+  <title>博客 · Xiaotang27</title>
+  <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="assets/blog.css" />
+</head>
+<body>
+  <!-- 顶部毛玻璃区域：时刻显示 -->
+  <header class="glass">
+    <div class="glass-inner">
+      <a class="glass-brand" href="index.html">
+        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
+        <span>
+          <span class="gb-name">Xiaotang27</span>
+          <span class="gb-sub">丢掉幻想，准备斗争</span>
+        </span>
+      </a>
+      <nav class="glass-nav" aria-label="站点导航">
+        <a href="index.html">主页</a>
+        <a href="blog.html" aria-current="page">博客</a>
+        <a href="friends.html">友链</a>
+        <a href="post.html?post=about">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="b-page">
+    <h1 class="b-title">博客</h1>
+    <p class="b-sub">按发布年月归档；右侧标签可筛选。</p>
+
+    <div class="b-main">
+      <div class="b-posts">
+        <div class="b-status" id="status">正在加载文章…</div>
+        <div id="groups"></div>
+      </div>
+
+      <aside class="b-side">
+        <h3 class="b-side-title">按标签查找</h3>
+        <div class="tag-list" id="tagList"></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
+    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  </footer>
+
+  <script src="assets/markdown.js"></script>
+  <script>
+    (function () {
+      var posts = [];
+      var activeTag = null;
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+      function lastModifiedDate(res) {
+        var lm = res && res.headers && res.headers.get('Last-Modified');
+        if (!lm) return '';
+        var d = new Date(lm);
+        return isNaN(d) ? '' : d.toISOString().slice(0, 10);
+      }
+      function ym(p) { return (p.date || '').slice(0, 7); }
+
+      function load() {
+        return fetch('posts/index.json')
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function (data) {
+            posts = (data.posts || []).slice();
+            return Promise.all(posts.map(function (p) {
+              return fetch('posts/' + encodeURIComponent(p.slug) + '.md')
+                .then(function (res) {
+                  var d = lastModifiedDate(res);
+                  return res.text().then(function (md) {
+                    p.date = p.date || d;
+                    p.words = countWords(md);
+                    return p;
+                  });
+                })
+                .catch(function () { p.words = 0; return p; });
+            }));
+          })
+          .then(function () {
+            posts.sort(function (a, b) {
+              if ((b.date || '') !== (a.date || '')) return (b.date || '').localeCompare(a.date || '');
+              return 0;
+            });
+          });
+      }
+
+      function renderTagList() {
+        var counts = {};
+        var order = [];
+        posts.forEach(function (p) {
+          (p.tags || []).forEach(function (t) {
+            if (!counts[t]) { counts[t] = 0; order.push(t); }
+            counts[t]++;
+          });
+        });
+        order.sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b); });
+
+        var html = '<button type="button" class="tag-item' + (!activeTag ? ' is-active' : '') + '" data-tag="">' +
+          '全部文章<span class="tag-count">' + posts.length + '</span></button>';
+        html += order.map(function (t) {
+          return '<button type="button" class="tag-item' + (activeTag === t ? ' is-active' : '') + '" data-tag="' + esc(t) + '">' +
+            esc(t) + '<span class="tag-count">' + counts[t] + '</span></button>';
+        }).join('');
+        document.getElementById('tagList').innerHTML = html;
+      }
+
+      function renderGroups() {
+        var list = posts;
+        if (activeTag) {
+          list = posts.filter(function (p) { return (p.tags || []).indexOf(activeTag) > -1; });
+        }
+        var groups = {};
+        list.forEach(function (p) {
+          var k = ym(p) || '未知时间';
+          (groups[k] = groups[k] || []).push(p);
+        });
+        var keys = Object.keys(groups).sort(function (a, b) { return b.localeCompare(a); });
+        var box = document.getElementById('groups');
+        if (!list.length) {
+          box.innerHTML = '<div class="b-status">该标签下暂无文章。</div>';
+          return;
+        }
+        box.innerHTML = keys.map(function (k) {
+          var cards = groups[k].map(function (p) {
+            var tags = (p.tags || []).map(function (t) {
+              return '<span class="tag">' + esc(t) + '</span>';
+            }).join('');
+            return (
+              '<a class="b-card" href="post.html?post=' + encodeURIComponent(p.slug) + '">' +
+                '<div class="bc-title">' + esc(p.title) + '</div>' +
+                '<div class="bc-meta"><span>' + esc(p.date || '日期未知') + '</span>' +
+                (p.words ? '<span>约 ' + formatWords(p.words) + '</span>' : '') +
+                (tags ? tags : '') +
+                '</div>' +
+              '</a>'
+            );
+          }).join('');
+          return '<section class="b-group"><h3 class="b-group-title">' + esc(k) +
+            '<span class="g-count">共 ' + groups[k].length + ' 篇</span></h3>' + cards + '</section>';
+        }).join('');
+      }
+
+      function bindTags() {
+        document.getElementById('tagList').addEventListener('click', function (e) {
+          var btn = e.target.closest ? e.target.closest('.tag-item') : null;
+          if (!btn || !document.getElementById('tagList').contains(btn)) return;
+          var t = btn.getAttribute('data-tag');
+          activeTag = (activeTag === t) ? null : t; // 再点一次取消筛选
+          renderTagList();
+          renderGroups();
+        });
+      }
+
+      load()
+        .then(function () {
+          document.getElementById('status').style.display = 'none';
+          renderTagList();
+          renderGroups();
+          bindTags();
+        })
+        .catch(function (err) {
+          document.getElementById('status').textContent = '文章加载失败：' + err.message +
+            '。博客需要读取本地文件，请用 HTTP 服务访问（例如 python -m http.server），或部署后浏览。';
+        });
+
+      var yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+  <script src="assets/backtop.js"></script>
+</body>
+</html>

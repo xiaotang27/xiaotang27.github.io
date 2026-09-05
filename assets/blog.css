@@ -402,3 +402,20 @@ body { padding-top: 64px; }
 .fw-card p:last-child { margin-bottom: 0; }
 .fw-card a { color: var(--accent-1); text-decoration: none; }
 .fw-card a:hover { text-decoration: underline; }
+
+/* ============ 博客页：按时间查找下拉 ============ */
+.month-select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.month-select:focus { border-color: var(--accent-1); }

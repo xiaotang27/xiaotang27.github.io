@@ -49,8 +49,9 @@
     {
       "slug": "about",
       "title": "关于",
-      "date": "2019-01-25",
+      "date": "2026-09-05",
       "desc": "> 你好！这里是Xiaotang27的网站！",
+      "cover": "posts/covers/4R2A0901.JPG",
       "tags": [
         "关于"
       ]

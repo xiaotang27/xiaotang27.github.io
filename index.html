@@ -125,20 +125,28 @@
       padding: calc(var(--band-h) + 24px) 16px 48px;
     }
     .profile {
-      width: min(94vw, 680px);
+      width: min(94vw, 800px);
       background: var(--card);
       -webkit-backdrop-filter: blur(16px) saturate(160%);
       backdrop-filter: blur(16px) saturate(160%);
       border: 1px solid var(--card-border);
       border-radius: 30px;
       box-shadow: var(--shadow);
-      padding: 52px 48px 44px;
-      text-align: center;
+      padding: 46px 38px 42px;
+      text-align: left;
       animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
+    /* 头像在左，昵称/Slogan/按钮在右 */
+    .head-row {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+    .info-col { flex: 1; min-width: 0; }
     .pf-avatar {
-      width: 148px; height: 148px;
-      margin: 0 auto;
+      width: 142px; height: 142px;
+      flex: 0 0 142px;
+      margin: 0;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid rgba(255, 255, 255, 0.95);
@@ -147,8 +155,8 @@
     }
     .pf-avatar:hover { transform: scale(1.05); }
     .name {
-      margin-top: 24px;
-      font-size: 34px;
+      margin-top: 0;
+      font-size: 32px;
       font-weight: 800;
       letter-spacing: 0.5px;
       background: linear-gradient(120deg, #23283a, var(--accent-2) 60%, var(--accent-3));
@@ -158,19 +166,19 @@
       color: var(--text);
     }
     .slogan {
-      margin-top: 10px;
+      margin-top: 8px;
       color: var(--text-soft);
       font-size: 15.5px;
       line-height: 1.6;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
     }
-    .links { margin-top: 32px; }
+    .links { margin-top: 22px; }
     .link-list {
       list-style: none;
       display: flex;
       flex-wrap: nowrap;
       gap: 10px;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .btn {
       display: inline-flex;
@@ -389,12 +397,23 @@
       .glass-nav a:hover { background: rgba(160, 174, 255, 0.12); color: #fff; }
     }
 
-    /* ============ 小屏 ============ */
-    @media (max-width: 620px) {
-      .profile { padding: 40px 22px 34px; }
-      .pf-avatar { width: 128px; height: 128px; }
-      .name { font-size: 28px; }
+    /* ============ 中屏：缩小头像，按钮允许换行 ============ */
+    @media (max-width: 900px) {
+      .profile { width: min(94vw, 760px); padding: 40px 28px 36px; }
+      .pf-avatar { width: 124px; height: 124px; flex-basis: 124px; }
+      .head-row { gap: 20px; }
       .link-list { flex-wrap: wrap; }
+    }
+
+    /* ============ 小屏：改为上下堆叠、居中 ============ */
+    @media (max-width: 620px) {
+      .profile { padding: 38px 22px 32px; text-align: center; }
+      .head-row { flex-direction: column; align-items: center; gap: 18px; }
+      .pf-avatar { width: 120px; height: 120px; flex-basis: 120px; }
+      .info-col { text-align: center; }
+      .name { font-size: 28px; }
+      .links { margin-top: 18px; }
+      .link-list { flex-wrap: wrap; justify-content: center; }
       .blog-card { padding: 26px 18px 30px; }
       .scroll-hint { display: none; }
       .cd-num { font-size: 46px; }
@@ -502,11 +521,13 @@
   <!-- 首屏：个人资料卡 -->
   <section class="hero">
     <div class="profile" id="profile">
-      <img class="pf-avatar" src="assets/xiaotang27-logo.webp" alt="Xiaotang27 的头像" />
-      <h1 class="name">Xiaotang27</h1>
-      <p class="slogan">丢掉幻想，准备斗争</p>
+      <div class="head-row">
+        <img class="pf-avatar" src="assets/xiaotang27-logo.webp" alt="Xiaotang27 的头像" />
+        <div class="info-col">
+          <h1 class="name">Xiaotang27</h1>
+          <p class="slogan">丢掉幻想，准备斗争</p>
 
-      <nav class="links" aria-label="其他站点">
+          <nav class="links" aria-label="其他站点">
         <ul class="link-list">
           <li>
             <a class="btn github" href="https://github.com/xiaotang27" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -533,7 +554,9 @@
             </a>
           </li>
         </ul>
-      </nav>
+          </nav>
+        </div>
+      </div>
     </div>
     <div class="scroll-hint" aria-hidden="true">
       <span>向下滑动</span>

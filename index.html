@@ -37,7 +37,11 @@
       background: var(--bg);
       min-height: 100vh;
       overflow-x: hidden;
+      /* 纵向 flex：内容不足一屏时，页脚也贴在视口底部 */
+      display: flex;
+      flex-direction: column;
     }
+    .hero, .blog-section, .count-section { flex: 0 0 auto; }
 
     /* ============ 背景光斑 ============ */
     .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
@@ -360,6 +364,7 @@
       letter-spacing: 0.3px;
       padding: 24px 16px 34px;
       line-height: 1.9;
+      margin-top: auto; /* 让页脚始终位于页面最底端 */
     }
     footer a {
       color: var(--text-soft);

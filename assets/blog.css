@@ -46,7 +46,7 @@ body::before {
 .page {
   max-width: 760px;
   margin: 0 auto;
-  padding: 48px 20px 72px;
+  padding: 56px 20px 84px;
   flex: 1 0 auto;
 }
 
@@ -109,7 +109,7 @@ body::before {
 .article-title { font-size: 30px; font-weight: 800; line-height: 1.3; letter-spacing: .3px; }
 .article-meta { margin-top: 12px; font-size: 14px; color: var(--text-faint); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
-.article { margin-top: 30px; font-size: 16px; }
+.article { margin-top: 34px; font-size: 16px; }
 .article p { margin: 0 0 18px; }
 .article h1, .article h2, .article h3, .article h4, .article h5, .article h6 {
   margin: 1.6em 0 .6em; font-weight: 700; line-height: 1.4;
@@ -267,39 +267,39 @@ body { padding-top: 64px; }
 }
 
 /* ============ 独立博客页：左列表（按发布年月分组）+ 右标签 ============ */
-.b-page { max-width: 1060px; margin: 0 auto; padding: 30px 20px 70px; flex: 1 0 auto; }
-.b-title { font-size: 28px; font-weight: 800; letter-spacing: 1px; margin-top: 8px; }
-.b-sub { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
-.b-main { display: flex; align-items: flex-start; gap: 26px; margin-top: 26px; }
+.b-page { max-width: 1060px; margin: 0 auto; padding: 56px 20px 84px; flex: 1 0 auto; }
+.b-title { font-size: 30px; font-weight: 800; letter-spacing: 1px; margin-top: 0; }
+.b-sub { color: var(--text-soft); font-size: 15px; margin-top: 12px; }
+.b-main { display: flex; align-items: flex-start; gap: 34px; margin-top: 36px; }
 .b-posts { flex: 1 1 auto; min-width: 0; }
 .b-side {
-  flex: 0 0 230px;
+  flex: 0 0 240px;
   position: sticky;
-  top: 84px;
+  top: 96px;
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 18px;
-  padding: 18px 16px;
+  border-radius: 20px;
+  padding: 22px 20px;
   box-shadow: var(--shadow);
 }
-.b-side-title { font-size: 14px; font-weight: 800; margin-bottom: 12px; letter-spacing: 1px; }
-.tag-list { display: flex; flex-direction: column; gap: 6px; }
+.b-side-title { font-size: 14.5px; font-weight: 800; margin-bottom: 16px; letter-spacing: 1px; }
+.tag-list { display: flex; flex-direction: column; gap: 8px; }
 .tag-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 7px 12px;
+  padding: 9px 15px;
   border: 1px solid transparent;
   border-radius: 999px;
   background: none;
   font: inherit;
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--text-soft);
   cursor: pointer;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
-.tag-item .tag-count { color: var(--text-faint); font-size: 12px; }
+.tag-item .tag-count { color: var(--text-faint); font-size: 12.5px; }
 .tag-item:hover { background: rgba(102, 126, 234, 0.08); color: var(--text); }
 .tag-item.is-active {
   color: #fff;
@@ -307,35 +307,35 @@ body { padding-top: 64px; }
 }
 .tag-item.is-active .tag-count { color: rgba(255, 255, 255, 0.85); }
 
-.b-group { margin-bottom: 26px; }
+.b-group { margin-bottom: 36px; }
 .b-group-title {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: 1px;
-  margin-bottom: 14px;
-  padding-left: 10px;
+  margin-bottom: 18px;
+  padding-left: 12px;
   border-left: 4px solid var(--accent-1);
 }
-.b-group-title .g-count { color: var(--text-faint); font-size: 12.5px; font-weight: 600; }
+.b-group-title .g-count { color: var(--text-faint); font-size: 13px; font-weight: 600; }
 .b-card {
   display: block;
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 14px 18px;
+  border-radius: 18px;
+  padding: 18px 22px;
   text-decoration: none;
   color: inherit;
   box-shadow: 0 6px 16px -10px rgba(80, 90, 160, 0.25);
   transition: transform .2s ease, box-shadow .2s ease;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .b-card:hover { transform: translateY(-2px); box-shadow: 0 12px 22px -12px rgba(80, 90, 160, 0.35); }
-.b-card .bc-title { font-size: 15.5px; font-weight: 700; }
-.b-card .bc-meta { margin-top: 5px; font-size: 12.5px; color: var(--text-faint); display: flex; flex-wrap: wrap; gap: 8px; }
-.b-status { color: var(--text-faint); padding: 30px 0; text-align: center; }
+.b-card .bc-title { font-size: 16.5px; font-weight: 700; }
+.b-card .bc-meta { margin-top: 8px; font-size: 13px; color: var(--text-faint); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.b-status { color: var(--text-faint); padding: 38px 0; text-align: center; }
 @media (max-width: 860px) {
   .b-main { flex-direction: column; }
   .b-side { flex-basis: auto; width: 100%; position: static; }
@@ -351,20 +351,20 @@ body { padding-top: 64px; }
 
 /* ============ 友链页：卡片（一行两个） ============ */
 .friends {
-  margin-top: 24px;
+  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 .friend {
   display: flex;
   align-items: stretch;
-  gap: 14px;
+  gap: 16px;
   min-width: 0;
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 18px;
-  padding: 16px;
+  border-radius: 20px;
+  padding: 20px;
   text-decoration: none;
   color: inherit;
   box-shadow: 0 8px 20px -12px rgba(80, 90, 160, 0.25);
@@ -396,15 +396,15 @@ body { padding-top: 64px; }
 
 /* ============ 友链页：友链交换事项 ============ */
 .fw-card {
-  margin-top: 26px;
+  margin-top: 32px;
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 18px;
-  padding: 22px 24px;
+  border-radius: 20px;
+  padding: 26px 28px;
   box-shadow: 0 8px 20px -12px rgba(80, 90, 160, 0.25);
 }
-.fw-title { font-size: 17px; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px; }
-.fw-card p { margin: 0 0 10px; color: var(--text-soft); font-size: 14.5px; line-height: 1.9; }
+.fw-title { font-size: 18px; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px; }
+.fw-card p { margin: 0 0 12px; color: var(--text-soft); font-size: 15px; line-height: 2; }
 .fw-card p:last-child { margin-bottom: 0; }
 .fw-card a { color: var(--accent-1); text-decoration: none; }
 .fw-card a:hover { text-decoration: underline; }

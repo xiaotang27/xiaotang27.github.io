@@ -31,10 +31,18 @@
 
   <main class="b-page">
     <h1 class="b-title">博客</h1>
-    <p class="b-sub">按发布年月归档；右侧可按标签 / 时间筛选。</p>
+    <p class="b-sub">按发布年月归档；上方可搜索正文，右侧可按标签 / 时间筛选。</p>
 
     <div class="b-main">
       <div class="b-posts">
+        <!-- 站内搜索：标题 / 正文 / 标签 -->
+        <div class="b-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="searchInput" type="search" placeholder="搜索文章标题或正文内容…" autocomplete="off" aria-label="搜索文章" />
+          <button id="searchClear" class="b-clear" type="button" aria-label="清空搜索" hidden>×</button>
+        </div>
+        <div class="b-search-meta" id="searchMeta" hidden></div>
+
         <div class="b-status" id="status">正在加载文章…</div>
         <div id="groups"></div>
       </div>
@@ -62,12 +70,14 @@
       var posts = [];
       var activeTag = null;
       var activeMonth = '';
+      var query = new URLSearchParams(location.search).get('q') || '';
 
       function esc(s) {
         return String(s == null ? '' : s)
           .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
           .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
       }
+      function escRe(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
       function lastModifiedDate(res) {
         var lm = res && res.headers && res.headers.get('Last-Modified');
         if (!lm) return '';
@@ -75,6 +85,50 @@
         return isNaN(d) ? '' : d.toISOString().slice(0, 10);
       }
       function ym(p) { return (p.date || '').slice(0, 7); }
+
+      /* ---------- 搜索：正文纯文本 / 关键词匹配 / 命中摘要 ---------- */
+      function plainText(md) {
+        return String(md || '')
+          .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, ' ')
+          .replace(/```[\s\S]*?```/g, ' ')
+          .replace(/`([^`]*)`/g, ' $1 ')
+          .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+          .replace(/\[([^\]]*)\]\([^)]*\)/g, ' $1 ')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/[#>*_~`|]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+      function terms() {
+        return String(query || '').toLowerCase().split(/\s+/).filter(Boolean);
+      }
+      function matchesQuery(p, ts) {
+        if (!ts.length) return true;
+        var h = ((p.title || '') + ' ' + (p.desc || '') + ' ' + (p.tags || []).join(' ') +
+          ' ' + (p.plain || '')).toLowerCase();
+        return ts.every(function (t) { return h.indexOf(t) > -1; });
+      }
+      function snippetOf(p, ts) {
+        var text = p.plain || '';
+        var lower = text.toLowerCase();
+        var at = -1;
+        for (var i = 0; i < ts.length; i++) {
+          var j = lower.indexOf(ts[i]);
+          if (j > -1 && (at === -1 || j < at)) at = j;
+        }
+        if (at === -1) return '';
+        var start = Math.max(0, at - 34);
+        var end = Math.min(text.length, at + 78);
+        return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+      }
+      function mark(s, ts) {
+        var html = esc(s);
+        ts.forEach(function (t) {
+          if (!t) return;
+          html = html.replace(new RegExp(escRe(t), 'gi'), function (m) { return '<mark>' + m + '</mark>'; });
+        });
+        return html;
+      }
 
       function load() {
         return fetch('posts/index.json')
@@ -88,10 +142,11 @@
                   return res.text().then(function (md) {
                     p.date = p.date || d;
                     p.words = countWords(md);
+                    p.plain = plainText(md);   // 供全文搜索使用
                     return p;
                   });
                 })
-                .catch(function () { p.words = 0; return p; });
+                .catch(function () { p.words = 0; p.plain = ''; return p; });
             }));
           })
           .then(function () {
@@ -135,6 +190,7 @@
       }
 
       function renderGroups() {
+        var ts = terms();
         var list = posts;
         if (activeTag) {
           list = list.filter(function (p) { return (p.tags || []).indexOf(activeTag) > -1; });
@@ -142,6 +198,20 @@
         if (activeMonth) {
           list = list.filter(function (p) { return ym(p) === activeMonth; });
         }
+        if (ts.length) {
+          list = list.filter(function (p) { return matchesQuery(p, ts); });
+        }
+
+        // 搜索结果提示
+        var meta = document.getElementById('searchMeta');
+        if (ts.length) {
+          meta.hidden = false;
+          meta.textContent = '在标题与正文中找到 ' + list.length + ' 篇包含「' + query.trim() + '」的文章';
+        } else {
+          meta.hidden = true;
+          meta.textContent = '';
+        }
+
         var groups = {};
         list.forEach(function (p) {
           var k = ym(p) || '未知时间';
@@ -150,7 +220,8 @@
         var keys = Object.keys(groups).sort(function (a, b) { return b.localeCompare(a); });
         var box = document.getElementById('groups');
         if (!list.length) {
-          box.innerHTML = '<div class="b-status">没有匹配的文章。</div>';
+          box.innerHTML = '<div class="b-status">' +
+            (ts.length ? '没有找到包含该关键词的文章。' : '没有匹配的文章。') + '</div>';
           return;
         }
         box.innerHTML = keys.map(function (k) {
@@ -158,13 +229,15 @@
             var tags = (p.tags || []).map(function (t) {
               return '<span class="tag">' + esc(t) + '</span>';
             }).join('');
+            var snip = ts.length ? snippetOf(p, ts) : '';
             return (
               '<a class="b-card" href="post.html?post=' + encodeURIComponent(p.slug) + '">' +
-                '<div class="bc-title">' + esc(p.title) + '</div>' +
+                '<div class="bc-title">' + (ts.length ? mark(p.title, ts) : esc(p.title)) + '</div>' +
                 '<div class="bc-meta"><span>' + esc(p.date || '日期未知') + '</span>' +
                 (p.words ? '<span>约 ' + formatWords(p.words) + '</span>' : '') +
                 (tags ? tags : '') +
                 '</div>' +
+                (snip ? '<div class="bc-snippet">' + mark(snip, ts) + '</div>' : '') +
               '</a>'
             );
           }).join('');
@@ -184,6 +257,37 @@
         });
       }
 
+      /* ---------- 搜索框 ---------- */
+      function bindSearch() {
+        var input = document.getElementById('searchInput');
+        var clear = document.getElementById('searchClear');
+        var timer = null;
+
+        function syncUrl() {
+          var q = query.trim();
+          var url = q ? '?q=' + encodeURIComponent(q) : location.pathname;
+          if (window.history && history.replaceState) history.replaceState(null, '', url);
+        }
+        function apply(v) {
+          query = v;
+          clear.hidden = !v;
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () { renderGroups(); syncUrl(); }, 140);
+        }
+
+        input.value = query;
+        clear.hidden = !query;
+        input.addEventListener('input', function () { apply(input.value); });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { input.value = ''; apply(''); }
+        });
+        clear.addEventListener('click', function () { input.value = ''; apply(''); input.focus(); });
+        // 按 "/" 快速聚焦搜索框
+        document.addEventListener('keydown', function (e) {
+          if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
+        });
+      }
+
       load()
         .then(function () {
           document.getElementById('status').style.display = 'none';
@@ -191,6 +295,7 @@
           renderTimeSelect();
           renderGroups();
           bindTags();
+          bindSearch();
           document.getElementById('monthSelect').addEventListener('change', function () {
             activeMonth = this.value;
             renderGroups();

@@ -282,10 +282,6 @@
           if (e.key === 'Escape') { input.value = ''; apply(''); }
         });
         clear.addEventListener('click', function () { input.value = ''; apply(''); input.focus(); });
-        // 按 "/" 快速聚焦搜索框
-        document.addEventListener('keydown', function (e) {
-          if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
-        });
       }
 
       load()
@@ -314,5 +310,6 @@
   <script src="assets/backtop.js"></script>
   <script src="assets/theme.js"></script>
   <script src="assets/island.js"></script>
+  <script src="assets/search.js"></script>
 </body>
 </html>

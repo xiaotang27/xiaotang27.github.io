@@ -268,7 +268,13 @@ body { padding-top: 64px; }
 
 /* ============ 独立博客页：左列表（按发布年月分组）+ 右标签 ============ */
 /* 宽屏下放宽内容区，让卡片向两侧铺开（不再挤在中间） */
-.b-page { max-width: min(1500px, 94vw); margin: 0 auto; padding: 56px 28px 84px; flex: 1 0 auto; }
+.b-page {
+  width: 100%;
+  max-width: min(1500px, 94vw);
+  margin: 0 auto;
+  padding: 56px 28px 84px;
+  flex: 1 0 auto;
+}
 .b-title { font-size: 30px; font-weight: 800; letter-spacing: 1px; margin-top: 0; }
 .b-sub { color: var(--text-soft); font-size: 15px; margin-top: 12px; }
 .b-main { display: flex; align-items: flex-start; gap: 40px; margin-top: 36px; }

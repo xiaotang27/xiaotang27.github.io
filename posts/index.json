@@ -1,8 +1,19 @@
 {
   "posts": [
     {
+      "slug": "hao-dong-xi-yao-lai-le",
+      "title": "好东西要来了",
+      "date": "2026-11-11",
+      "desc": "最近在用 AI 做一个答辩用的 MTR 扩展 mod。美术素材还没做完，先放点实机演示。",
+      "cover": "posts/images/hao-dong-xi-yao-lai-le/cover.webp",
+      "tags": [
+        "技术"
+      ]
+    },
+    {
       "slug": "hello-world",
       "title": "你好，世界",
+      "date": "2026-09-05",
       "desc": "重构后的一则公告。",
       "cover": "posts/covers/4R2A1972.JPG",
       "tags": [
@@ -66,6 +77,7 @@
     {
       "slug": "build-static-site",
       "title": "用纯静态搭建个人站点",
+      "date": "2026-09-05",
       "desc": "用纯静态搭建个人站点",
       "tags": [
         "技术"
@@ -151,6 +163,7 @@
     {
       "slug": "tangible-craft-notes",
       "title": "TangibleCraft 项目笔记",
+      "date": "2026-09-05",
       "desc": "TangibleCraft 项目笔记",
       "tags": []
     },

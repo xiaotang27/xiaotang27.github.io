@@ -3,54 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Xiaotang27 的友情链接。" />
+  <meta name="description" content="Xiaotang27 的友情链接，以及交换友链的说明。" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
   <title>友链 · Xiaotang27</title>
   <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="assets/blog.css?v=3" />
+  <link rel="stylesheet" href="assets/site.css?v=1" />
+  <script src="assets/theme.js?v=1"></script>
 </head>
 <body>
-  <!-- 顶部毛玻璃区域：时刻显示 -->
-  <header class="glass">
-    <div class="glass-inner">
-      <a class="glass-brand" href="index.html">
-        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
-        <span>
-          <span class="gb-name">Xiaotang27</span>
-          <span class="gb-sub">丢掉幻想，准备斗争</span>
-        </span>
+  <header class="masthead">
+    <div class="masthead-in">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/xiaotang27-logo.webp" alt="" width="26" height="26" />
+        <span class="brand-name">Xiaotang27</span>
       </a>
-      <nav class="glass-nav" aria-label="站点导航">
+      <nav class="nav" aria-label="站点导航">
         <a href="index.html">主页</a>
-        <a href="blog.html">博客</a>
+        <a href="blog.html">文章</a>
         <a href="friends.html" aria-current="page">友链</a>
         <a href="post.html?post=about">关于</a>
       </nav>
+      <div class="nav-actions" id="navActions"></div>
     </div>
   </header>
 
-  <main class="b-page">
-    <h1 class="b-title">友链</h1>
-    <p class="b-sub">与朋友们的链接。想交换友链欢迎留言。</p>
+  <main class="wrap page">
+    <header class="page-head">
+      <p class="eyebrow">Links / <span id="linkCount">—</span></p>
+      <h1 class="page-title">友链</h1>
+      <p class="page-deck">一些朋友的网站，常去转转。</p>
+    </header>
 
-    <!--
-      ★ 友链列表：直接改下面 FRIENDS 数组。
-      avatar 留空则显示首字母头像；也可以填图片 URL。
-    -->
-    <div class="friends" id="friends"></div>
+    <ul class="links-list" id="friends"></ul>
+    <noscript><p class="status">友链列表需要 JavaScript 才能显示。</p></noscript>
 
-    <!-- 友链交换事项 -->
-    <section class="fw-card">
-      <h2 class="fw-title">友链交换事项</h2>
-      <p>请将贵站的站点名称、logo 和一句话描述发送至 <a href="mailto:mttang27@gmail.com">mttang27@gmail.com</a>。看到后会尽快处理。</p>
-      <p>贵站需要先添加本站为友链。请保证网站能正常访问，无任何违反法律法规内容，无任何敏感、不良信息。</p>
-      <p>若网站无法正常访问，不符合上述要求或删除本站友链，本站将删除贵站友链。</p>
+    <section class="exchange">
+      <h2>换友链</h2>
+      <ol class="rules">
+        <li>把站点名称、logo 和一句话描述发到 <a href="mailto:mttang27@gmail.com">mttang27@gmail.com</a>，看到就会处理。</li>
+        <li>请先在贵站加上本站友链。</li>
+        <li>网站要能正常访问，不夹带违反法律法规或敏感、不良的内容。</li>
+        <li>如果网站打不开、不符合要求，或者删掉了本站友链，这边也会把贵站撤下。</li>
+      </ol>
+
+      <dl class="site-info">
+        <dt>站点</dt>
+        <dd>Xiaotang27 · 丢掉幻想，准备斗争</dd>
+        <dt>地址</dt>
+        <dd><a href="https://xiaotang27.top">https://xiaotang27.top</a></dd>
+        <dt>Logo</dt>
+        <dd><a href="https://xiaotang27.top/xiaotang27-logo.webp">xiaotang27-logo.webp</a></dd>
+        <dt>描述</dt>
+        <dd>写点东西，做点东西。</dd>
+      </dl>
     </section>
   </main>
 
-  <footer class="site-footer">
-    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
-    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  <footer class="site-foot">
+    <div class="foot-in">
+      <p>© <span id="year">2026</span> Xiaotang27 · 保留所有权利 · <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a></p>
+    </div>
   </footer>
 
   <script>
@@ -59,8 +73,7 @@
         { name: 'MisakaAkio', slogan: '不努力就只能听到别人的好消息', url: 'https://www.akio.top/', avatar: 'https://webstatic.blueakio.com/dynamic/user/NiuBoss123.jpg' },
         { name: 'MTRBBS', slogan: '我的世界铁路中文论坛', url: 'https://www.mtrbbs.top', avatar: '' },
         { name: 'AurLemon', slogan: 'AurLemon Intro', url: 'https://aurlemon.top', avatar: 'https://aurlemon.top/_nuxt/avatar_mark.CE0KfQyB.webp' },
-        { name: 'TangibleCraft', slogan: '我都老资历服务器（？', url: 'https://tangible.xiaotang27.top', avatar: 'assets/tangible-logo.png' },
-        
+        { name: 'TangibleCraft', slogan: '我都老资历服务器（？', url: 'https://tangible.xiaotang27.top', avatar: 'assets/tangible-logo.png' }
       ];
 
       function esc(s) {
@@ -70,30 +83,31 @@
       }
 
       var html = FRIENDS.map(function (f) {
-        var av = f.avatar
-          ? '<img src="' + esc(f.avatar) + '" alt="" />'
-          : esc((f.name || '?').trim().charAt(0).toUpperCase());
-        return (
-          '<a class="friend" href="' + esc(f.url) + '" target="_blank" rel="noopener noreferrer">' +
-            '<span class="f-avatar">' + av + '</span>' +
+        var initial = esc((f.name || '?').trim().charAt(0).toUpperCase());
+        var img = f.avatar
+          ? '<img src="' + esc(f.avatar) + '" alt="" loading="lazy" onerror="this.remove()" />'
+          : '';
+        return '<li class="friend">' +
+          '<a href="' + esc(f.url) + '" target="_blank" rel="noopener noreferrer">' +
+            '<span class="f-avatar" aria-hidden="true">' + initial + img + '</span>' +
             '<span class="f-info">' +
               '<span class="f-name">' + esc(f.name) + '</span>' +
-              '<span class="f-slogan">' + esc(f.slogan) + '</span>' +
+              (f.slogan ? '<span class="f-slogan">' + esc(f.slogan) + '</span>' : '') +
             '</span>' +
             '<span class="f-arrow" aria-hidden="true">↗</span>' +
-          '</a>'
-        );
+          '</a>' +
+        '</li>';
       }).join('');
-      document.getElementById('friends').innerHTML = html || '<div class="b-status">暂无友链。</div>';
+
+      document.getElementById('friends').innerHTML = html || '<li class="empty">还没有友链。</li>';
+      document.getElementById('linkCount').textContent = String(FRIENDS.length).padStart(2, '0');
 
       var yEl = document.getElementById('year');
       if (yEl) yEl.textContent = new Date().getFullYear();
     })();
   </script>
 
-  <script src="assets/backtop.js"></script>
-  <script src="assets/theme.js"></script>
-  <script src="assets/island.js"></script>
-  <script src="assets/search.js"></script>
+  <script src="assets/backtop.js?v=1"></script>
+  <script src="assets/search.js?v=1"></script>
 </body>
 </html>

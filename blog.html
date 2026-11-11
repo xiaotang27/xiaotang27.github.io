@@ -3,68 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Xiaotang27 的博客归档：按发布年月分组，可按标签查找。" />
-  <title>博客 · Xiaotang27</title>
+  <meta name="description" content="Xiaotang27 的文章索引：按年月归档，可搜索正文、按标签或月份筛选。" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
+  <title>文章 · Xiaotang27</title>
   <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="assets/blog.css?v=3" />
+  <link rel="stylesheet" href="assets/site.css?v=1" />
+  <script src="assets/theme.js?v=1"></script>
 </head>
 <body>
-  <!-- 顶部毛玻璃区域：时刻显示 -->
-  <header class="glass">
-    <div class="glass-inner">
-      <a class="glass-brand" href="index.html">
-        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
-        <span>
-          <span class="gb-name">Xiaotang27</span>
-          <span class="gb-sub">丢掉幻想，准备斗争</span>
-        </span>
+  <header class="masthead">
+    <div class="masthead-in">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/xiaotang27-logo.webp" alt="" width="26" height="26" />
+        <span class="brand-name">Xiaotang27</span>
       </a>
-      <nav class="glass-nav" aria-label="站点导航">
+      <nav class="nav" aria-label="站点导航">
         <a href="index.html">主页</a>
-        <a href="blog.html" aria-current="page">博客</a>
+        <a href="blog.html" aria-current="page">文章</a>
         <a href="friends.html">友链</a>
         <a href="post.html?post=about">关于</a>
       </nav>
+      <div class="nav-actions" id="navActions"></div>
     </div>
   </header>
 
-  <main class="b-page">
-    <h1 class="b-title">博客</h1>
-    <p class="b-sub">按发布年月归档；上方可搜索正文，右侧可按标签 / 时间筛选。</p>
+  <main class="wrap page">
+    <header class="page-head">
+      <p class="eyebrow">Index / <span id="yearRange">—</span></p>
+      <h1 class="page-title">文章</h1>
+      <p class="page-deck">按年月归档。可以搜正文，也可以按标签或月份筛。</p>
+    </header>
 
-    <div class="b-main">
-      <div class="b-posts">
-        <!-- 站内搜索：标题 / 正文 / 标签 -->
-        <div class="b-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input id="searchInput" type="search" placeholder="搜索文章标题或正文内容…" autocomplete="off" aria-label="搜索文章" />
-          <button id="searchClear" class="b-clear" type="button" aria-label="清空搜索" hidden>×</button>
-        </div>
-        <div class="b-search-meta" id="searchMeta" hidden></div>
+    <div class="index-search">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索标题或正文…" autocomplete="off" aria-label="搜索文章" />
+        <button id="searchClear" class="search-clear" type="button" aria-label="清空搜索" hidden>×</button>
+      </div>
+      <p class="search-meta" id="searchMeta" hidden></p>
+    </div>
 
-        <div class="b-status" id="status">正在加载文章…</div>
+    <div class="index-layout">
+      <aside class="side" aria-label="筛选">
+        <section class="side-block">
+          <h2 class="side-title">标签</h2>
+          <div class="tag-list" id="tagList"></div>
+          <p class="tag-hint">点一下筛选，再点取消。</p>
+        </section>
+        <section class="side-block">
+          <h2 class="side-title">月份</h2>
+          <div class="select-wrap">
+            <select id="monthSelect" class="select">
+              <option value="">全部月份</option>
+            </select>
+          </div>
+        </section>
+        <section class="side-block">
+          <p class="side-note">共 <b id="totalCount">—</b> 篇<br /><b id="firstDate">—</b> 起，最近 <b id="lastDate">—</b>。</p>
+        </section>
+      </aside>
+
+      <div class="index-main">
+        <p class="status" id="status">正在读取文章…</p>
+        <noscript><p class="status">文章列表需要 JavaScript 才能读取。</p></noscript>
         <div id="groups"></div>
       </div>
-
-      <aside class="b-side">
-        <h3 class="b-side-title">按标签查找</h3>
-        <div class="tag-list" id="tagList"></div>
-
-        <h3 class="b-side-title" style="margin-top:24px">按时间查找</h3>
-        <select id="monthSelect" class="month-select">
-          <option value="">全部时间</option>
-        </select>
-      </aside>
     </div>
   </main>
 
-  <footer class="site-footer">
-    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
-    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  <footer class="site-foot">
+    <div class="foot-in">
+      <p>© <span id="year">2026</span> Xiaotang27 · 保留所有权利 · <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a></p>
+    </div>
   </footer>
 
-  <script src="assets/markdown.js"></script>
+  <script src="assets/markdown.js?v=1"></script>
   <script>
     (function () {
       var posts = [];
@@ -78,6 +93,7 @@
           .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
       }
       function escRe(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+      function dotted(d) { return String(d || '').replace(/-/g, '.'); }
       function lastModifiedDate(res) {
         var lm = res && res.headers && res.headers.get('Last-Modified');
         if (!lm) return '';
@@ -86,7 +102,6 @@
       }
       function ym(p) { return (p.date || '').slice(0, 7); }
 
-      /* ---------- 搜索：正文纯文本 / 关键词匹配 / 命中摘要 ---------- */
       function plainText(md) {
         return String(md || '')
           .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, ' ')
@@ -104,9 +119,9 @@
       }
       function matchesQuery(p, ts) {
         if (!ts.length) return true;
-        var h = ((p.title || '') + ' ' + (p.desc || '') + ' ' + (p.tags || []).join(' ') +
+        var hay = ((p.title || '') + ' ' + (p.desc || '') + ' ' + (p.tags || []).join(' ') +
           ' ' + (p.plain || '')).toLowerCase();
-        return ts.every(function (t) { return h.indexOf(t) > -1; });
+        return ts.every(function (t) { return hay.indexOf(t) > -1; });
       }
       function snippetOf(p, ts) {
         var text = p.plain || '';
@@ -140,9 +155,10 @@
                 .then(function (res) {
                   var d = lastModifiedDate(res);
                   return res.text().then(function (md) {
+                    md = md.replace(/^#\s+[^\n]*\n?/, '');
                     p.date = p.date || d;
                     p.words = countWords(md);
-                    p.plain = plainText(md);   // 供全文搜索使用
+                    p.plain = plainText(md);
                     return p;
                   });
                 })
@@ -151,10 +167,25 @@
           })
           .then(function () {
             posts.sort(function (a, b) {
-              if ((b.date || '') !== (a.date || '')) return (b.date || '').localeCompare(a.date || '');
-              return 0;
+              return String(b.date || '').localeCompare(String(a.date || ''));
             });
           });
+      }
+
+      function renderSummary() {
+        var dates = posts.map(function (p) { return p.date; }).filter(Boolean).sort();
+        var yearRange = document.getElementById('yearRange');
+        var total = document.getElementById('totalCount');
+        if (dates.length) {
+          var minY = dates[0].slice(0, 4);
+          var maxY = dates[dates.length - 1].slice(0, 4);
+          yearRange.textContent = minY === maxY ? minY : minY + '—' + maxY;
+          document.getElementById('firstDate').textContent = dotted(dates[0]);
+          document.getElementById('lastDate').textContent = dotted(dates[dates.length - 1]);
+        } else {
+          yearRange.textContent = '文章索引';
+        }
+        if (total) total.textContent = posts.length;
       }
 
       function renderTagList() {
@@ -168,11 +199,11 @@
         });
         order.sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b); });
 
-        var html = '<button type="button" class="tag-item' + (!activeTag ? ' is-active' : '') + '" data-tag="">' +
-          '全部文章<span class="tag-count">' + posts.length + '</span></button>';
+        var html = '<button type="button" class="tag-row' + (!activeTag ? ' is-active' : '') + '" data-tag="">' +
+          '<span>全部</span><span class="leader"></span><span class="count">' + posts.length + '</span></button>';
         html += order.map(function (t) {
-          return '<button type="button" class="tag-item' + (activeTag === t ? ' is-active' : '') + '" data-tag="' + esc(t) + '">' +
-            esc(t) + '<span class="tag-count">' + counts[t] + '</span></button>';
+          return '<button type="button" class="tag-row' + (activeTag === t ? ' is-active' : '') + '" data-tag="' + esc(t) + '">' +
+            '<span>' + esc(t) + '</span><span class="leader"></span><span class="count">' + counts[t] + '</span></button>';
         }).join('');
         document.getElementById('tagList').innerHTML = html;
       }
@@ -181,8 +212,8 @@
         var keys = {};
         posts.forEach(function (p) { if (ym(p)) keys[ym(p)] = true; });
         var months = Object.keys(keys).sort(function (a, b) { return b.localeCompare(a); });
-        var html = '<option value="">全部时间</option>' + months.map(function (m) {
-          return '<option value="' + m + '"' + (activeMonth === m ? ' selected' : '') + '>' + m + '</option>';
+        var html = '<option value="">全部月份</option>' + months.map(function (m) {
+          return '<option value="' + m + '"' + (activeMonth === m ? ' selected' : '') + '>' + m.replace('-', '.') + '</option>';
         }).join('');
         var sel = document.getElementById('monthSelect');
         sel.innerHTML = html;
@@ -202,11 +233,10 @@
           list = list.filter(function (p) { return matchesQuery(p, ts); });
         }
 
-        // 搜索结果提示
         var meta = document.getElementById('searchMeta');
         if (ts.length) {
           meta.hidden = false;
-          meta.textContent = '在标题与正文中找到 ' + list.length + ' 篇包含「' + query.trim() + '」的文章';
+          meta.textContent = '在标题与正文里找到 ' + list.length + ' 篇包含「' + query.trim() + '」的文章';
         } else {
           meta.hidden = true;
           meta.textContent = '';
@@ -220,44 +250,59 @@
         var keys = Object.keys(groups).sort(function (a, b) { return b.localeCompare(a); });
         var box = document.getElementById('groups');
         if (!list.length) {
-          box.innerHTML = '<div class="b-status">' +
-            (ts.length ? '没有找到包含该关键词的文章。' : '没有匹配的文章。') + '</div>';
+          box.innerHTML = '<div class="empty">' + (ts.length ? '没有找到包含这个词的文章。' : '这里还没有文章。') + '</div>';
           return;
         }
+
         box.innerHTML = keys.map(function (k) {
           var cards = groups[k].map(function (p) {
             var tags = (p.tags || []).map(function (t) {
               return '<span class="tag">' + esc(t) + '</span>';
             }).join('');
-            var snip = ts.length ? snippetOf(p, ts) : '';
-            return (
-              '<a class="b-card" href="post.html?post=' + encodeURIComponent(p.slug) + '">' +
-                '<div class="bc-title">' + (ts.length ? mark(p.title, ts) : esc(p.title)) + '</div>' +
-                '<div class="bc-meta"><span>' + esc(p.date || '日期未知') + '</span>' +
-                (p.words ? '<span>约 ' + formatWords(p.words) + '</span>' : '') +
-                (tags ? tags : '') +
-                '</div>' +
-                (snip ? '<div class="bc-snippet">' + mark(snip, ts) + '</div>' : '') +
-              '</a>'
-            );
+
+            var body = '';
+            if (ts.length) {
+              var snip = snippetOf(p, ts);
+              if (snip) body = '<span class="arc-snippet">' + mark(snip, ts) + '</span>';
+              else if (p.desc) body = '<span class="arc-desc">' + mark(p.desc, ts) + '</span>';
+            } else if (p.desc) {
+              body = '<span class="arc-desc">' + esc(p.desc) + '</span>';
+            }
+
+            var day = p.date ? p.date.slice(8, 10) : '—';
+            return '<li class="arc">' +
+              '<a href="post.html?post=' + encodeURIComponent(p.slug) + '">' +
+                '<span class="arc-date">' + esc(day) + '</span>' +
+                '<span class="arc-main">' +
+                  '<span class="arc-title">' + (ts.length ? mark(p.title || p.slug, ts) : esc(p.title || p.slug)) + '</span>' +
+                  body +
+                  (tags ? '<span class="arc-tags">' + tags + '</span>' : '') +
+                '</span>' +
+                '<span class="arc-arrow" aria-hidden="true">→</span>' +
+              '</a>' +
+            '</li>';
           }).join('');
-          return '<section class="b-group"><h3 class="b-group-title">' + esc(k) +
-            '<span class="g-count">共 ' + groups[k].length + ' 篇</span></h3>' + cards + '</section>';
+
+          var label = k === '未知时间' ? k : k.replace('-', ' / ');
+          return '<section class="month">' +
+            '<h2 class="month-head"><span class="month-label">' + esc(label) + '</span>' +
+            '<span class="month-line"></span><span class="month-count">' + groups[k].length + ' 篇</span></h2>' +
+            '<ul class="arc-list">' + cards + '</ul>' +
+          '</section>';
         }).join('');
       }
 
       function bindTags() {
         document.getElementById('tagList').addEventListener('click', function (e) {
-          var btn = e.target.closest ? e.target.closest('.tag-item') : null;
-          if (!btn || !document.getElementById('tagList').contains(btn)) return;
+          var btn = e.target.closest ? e.target.closest('.tag-row') : null;
+          if (!btn) return;
           var t = btn.getAttribute('data-tag');
-          activeTag = (activeTag === t) ? null : t; // 再点一次取消筛选
+          activeTag = (activeTag === t) ? null : t;
           renderTagList();
           renderGroups();
         });
       }
 
-      /* ---------- 搜索框 ---------- */
       function bindSearch() {
         var input = document.getElementById('searchInput');
         var clear = document.getElementById('searchClear');
@@ -287,6 +332,7 @@
       load()
         .then(function () {
           document.getElementById('status').style.display = 'none';
+          renderSummary();
           renderTagList();
           renderTimeSelect();
           renderGroups();
@@ -298,8 +344,9 @@
           });
         })
         .catch(function (err) {
-          document.getElementById('status').textContent = '文章加载失败：' + err.message +
-            '。博客需要读取本地文件，请用 HTTP 服务访问（例如 python -m http.server），或部署后浏览。';
+          var st = document.getElementById('status');
+          st.textContent = '文章没读出来（' + err.message + '）。如果是本地直接打开的，请用本地服务器访问。';
+          st.style.color = 'var(--accent)';
         });
 
       var yEl = document.getElementById('year');
@@ -307,9 +354,7 @@
     })();
   </script>
 
-  <script src="assets/backtop.js"></script>
-  <script src="assets/theme.js"></script>
-  <script src="assets/island.js"></script>
-  <script src="assets/search.js"></script>
+  <script src="assets/backtop.js?v=1"></script>
+  <script src="assets/search.js?v=1"></script>
 </body>
 </html>

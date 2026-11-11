@@ -4,110 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="页面不存在 - Xiaotang27" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
   <title>404 · 页面不存在 · Xiaotang27</title>
   <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="assets/blog.css?v=3" />
-  <style>
-    /* 与博客模板同风格的 404 内容区 */
-    .nf {
-      min-height: calc(100svh - 200px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 40px 0;
-    }
-    .nf-code {
-      font-size: 104px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 6px;
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2) 55%, var(--accent-3));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .nf-title {
-      margin-top: 14px;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-    .nf-desc {
-      margin-top: 10px;
-      color: var(--text-soft);
-      font-size: 15px;
-    }
-    .nf-actions {
-      margin-top: 32px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-    }
-    .nf-actions .btn-back {
-      padding: 11px 24px;
-      font-size: 14.5px;
-      border-radius: 999px;
-      color: var(--text);
-    }
-    .nf-actions .btn-primary {
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-      color: #fff;
-      border: none;
-    }
-    .nf-actions .btn-primary:hover { color: #fff; }
-    @media (max-width: 480px) {
-      .nf-code { font-size: 76px; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/site.css?v=1" />
+  <script src="assets/theme.js?v=1"></script>
 </head>
-<body>
-  <!-- 顶部毛玻璃区域：时刻显示 -->
-  <header class="glass">
-    <div class="glass-inner">
-      <a class="glass-brand" href="index.html">
-        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
-        <span>
-          <span class="gb-name">Xiaotang27</span>
-          <span class="gb-sub">丢掉幻想，准备斗争</span>
-        </span>
+<body class="page-404">
+  <header class="masthead">
+    <div class="masthead-in">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/xiaotang27-logo.webp" alt="" width="26" height="26" />
+        <span class="brand-name">Xiaotang27</span>
       </a>
-      <nav class="glass-nav" aria-label="站点导航">
+      <nav class="nav" aria-label="站点导航">
         <a href="index.html">主页</a>
-        <a href="blog.html">博客</a>
+        <a href="blog.html">文章</a>
         <a href="friends.html">友链</a>
         <a href="post.html?post=about">关于</a>
       </nav>
+      <div class="nav-actions" id="navActions"></div>
     </div>
   </header>
 
-  <div class="page">
+  <main class="wrap">
     <div class="nf">
-      <div class="nf-code" aria-hidden="true">404</div>
-      <h1 class="nf-title">页面不存在</h1>
-      <p class="nf-desc">已观测到棍木</p>
-      <div class="nf-actions">
-        <a class="btn-back btn-primary" href="index.html">← 返回主页</a>
-        <a class="btn-back" href="blog.html">去博客看看</a>
-      </div>
+      <p class="eyebrow">Error / 404</p>
+      <h1 class="sr-only">页面不存在</h1>
+      <p class="nf-code" aria-hidden="true">4<span>0</span>4</p>
+      <p class="nf-desc">已观测到棍木。</p>
+      <p class="nf-sub">这一页不存在，或者已经搬走了。地址再核对一下？</p>
+      <nav class="nf-links" aria-label="去处">
+        <a href="index.html">← 回主页</a>
+        <a href="blog.html">去文章列表 →</a>
+      </nav>
     </div>
-  </div>
+  </main>
 
-  <footer class="site-footer">
-    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
-    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  <footer class="site-foot">
+    <div class="foot-in">
+      <p>© <span id="year">2026</span> Xiaotang27 · 保留所有权利 · <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a></p>
+    </div>
   </footer>
 
   <script>
-    var yrEl = document.getElementById('year');
-    if (yrEl) yrEl.textContent = new Date().getFullYear();
+    var yEl = document.getElementById('year');
+    if (yEl) yEl.textContent = new Date().getFullYear();
   </script>
-  <script src="assets/backtop.js"></script>
-  <script src="assets/theme.js"></script>
-  <script src="assets/island.js"></script>
-  <script src="assets/search.js"></script>
+  <script src="assets/backtop.js?v=1"></script>
+  <script src="assets/search.js?v=1"></script>
 </body>
 </html>

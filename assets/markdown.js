@@ -10,7 +10,19 @@
 
   function inline(s) {
     s = esc(s);
-    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    /* 先把行内代码摘出来，避免里面的 * [ ] ! 被当成 Markdown。
+       同时支持 ``双反引号`` 的写法。 */
+    const codes = [];
+    s = s.replace(/``([\s\S]+?)``/g, function (_, code) {
+      codes.push(code.trim());
+      return '\u0000' + (codes.length - 1) + '\u0000';
+    });
+    s = s.replace(/`([^`]+)`/g, function (_, code) {
+      codes.push(code);
+      return '\u0000' + (codes.length - 1) + '\u0000';
+    });
+
     s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
     s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
@@ -18,6 +30,10 @@
     s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img src="$2" alt="$1" />');
     s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
     s = s.replace(/(\bhttps?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+
+    s = s.replace(/\u0000(\d+)\u0000/g, function (_, i) {
+      return '<code>' + codes[Number(i)] + '</code>';
+    });
     return s;
   }
 

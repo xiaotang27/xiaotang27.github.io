@@ -3,40 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Xiaotang27 的博客文章。" />
+  <meta name="description" content="Xiaotang27 的文章。" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
   <title>文章 · Xiaotang27</title>
   <link rel="icon" type="image/webp" href="xiaotang27-logo.webp" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="stylesheet" href="assets/blog.css?v=3" />
+  <link rel="stylesheet" href="assets/site.css?v=1" />
+  <script src="assets/theme.js?v=1"></script>
 </head>
 <body>
-  <!-- 顶部毛玻璃区域：时刻显示 -->
-  <header class="glass">
-    <div class="glass-inner">
-      <a class="glass-brand" href="index.html">
-        <img src="xiaotang27-logo.webp" alt="Xiaotang27" />
-        <span>
-          <span class="gb-name">Xiaotang27</span>
-          <span class="gb-sub">丢掉幻想，准备斗争</span>
-        </span>
+  <header class="masthead">
+    <div class="masthead-in">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/xiaotang27-logo.webp" alt="" width="26" height="26" />
+        <span class="brand-name">Xiaotang27</span>
       </a>
-      <nav class="glass-nav" aria-label="站点导航">
+      <nav class="nav" aria-label="站点导航">
         <a href="index.html">主页</a>
-        <a href="blog.html">博客</a>
+        <a href="blog.html">文章</a>
         <a href="friends.html">友链</a>
-        <a href="post.html?post=about" aria-current="page">关于</a>
+        <a href="post.html?post=about" id="navAbout">关于</a>
       </nav>
+      <div class="nav-actions" id="navActions"></div>
     </div>
   </header>
 
-  <div class="page">
-    <div class="status" id="status">正在加载文章…</div>
+  <main class="article-wrap">
+    <p class="crumbs"><a href="blog.html">文章</a><span class="slash">/</span><span class="here" id="crumb">正文</span></p>
 
-    <div id="wrap" style="display:none">
-      <!-- 头图位：有 cover 时显示图片，无则渐变占位 -->
-      <div class="article-cover" id="cover"></div>
+    <p class="status" id="status">正在读取文章…</p>
+    <noscript><p class="status">文章正文需要 JavaScript 才能读取。</p></noscript>
 
-      <header class="article-header">
+    <div id="wrap" hidden>
+      <header class="article-head">
         <h1 class="article-title" id="title"></h1>
         <div class="article-meta">
           <span id="date"></span>
@@ -46,102 +46,134 @@
         </div>
       </header>
 
-      <article class="article" id="content"></article>
+      <div class="article-cover" id="cover" hidden></div>
 
-      <footer class="post-footer">
-        <a href="index.html">← 返回主页</a>
-      </footer>
+      <article class="prose" id="content"></article>
+
+      <div class="end-mark" aria-hidden="true"></div>
+      <nav class="pager" id="pager" aria-label="上一篇与下一篇" hidden></nav>
     </div>
-  </div>
+  </main>
 
-  <footer class="site-footer">
-    © <span id="year">2025</span> Xiaotang27 · 保留所有权利 ·
-    <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a>
+  <footer class="site-foot">
+    <div class="foot-in">
+      <p>© <span id="year">2026</span> Xiaotang27 · 保留所有权利 · <a href="https://icp.gov.moe/?keyword=20265735" target="_blank" rel="noopener">萌ICP备20265735号</a></p>
+    </div>
   </footer>
 
-  <script src="assets/markdown.js"></script>
+  <script src="assets/markdown.js?v=1"></script>
   <script>
     (function () {
-      var BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
       var params = new URLSearchParams(location.search);
       var slug = params.get('post');
+      var statusEl = document.getElementById('status');
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+      function dotted(d) { return String(d || '').replace(/-/g, '.'); }
+      function lastModifiedDate(res) {
+        var lm = res && res.headers && res.headers.get('Last-Modified');
+        if (!lm) return '';
+        var d = new Date(lm);
+        return isNaN(d) ? '' : d.toISOString().slice(0, 10);
+      }
+
+      function fail(msg) {
+        statusEl.innerHTML = '没有找到这篇文章。' + (msg ? '（' + esc(msg) + '）' : '') +
+          '<br /><a href="blog.html">回文章列表 →</a>' +
+          (location.protocol === 'file:' ? '<br />本地直接打开时，请用 HTTP 服务访问。' : '');
+      }
+
+      if (!slug) { fail('地址里没有 ?post= 参数'); return; }
+
       if (slug === 'about') {
-        var ab = document.querySelector('.glass-nav a[href*="post=about"]');
+        var ab = document.getElementById('navAbout');
         if (ab) ab.setAttribute('aria-current', 'page');
       }
 
-      var status = document.getElementById('status');
-      var wrap = document.getElementById('wrap');
-      var coverEl = document.getElementById('cover');
-      var titleEl = document.getElementById('title');
-      var dateEl = document.getElementById('date');
-      var wordsEl = document.getElementById('words');
-      var readTimeEl = document.getElementById('readTime');
-      var tagsEl = document.getElementById('tags');
-      var contentEl = document.getElementById('content');
-
-      function fail(msg) {
-        status.textContent = '没有找到这篇文章：' + msg +
-          '。若在本地直接打开，请用本地 HTTP 服务访问（见 README）。';
-      }
-
-      if (!slug) { fail('缺少 ?post= 参数'); return; }
-
       Promise.all([
-        fetch('posts/index.json').then(function (r) { return r.ok ? r.json() : null; }),
+        fetch('posts/index.json').then(function (r) { return r.ok ? r.json() : { posts: [] }; }),
         fetch('posts/' + encodeURIComponent(slug) + '.md').then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
-          return r.text();
+          var lm = lastModifiedDate(r);
+          return r.text().then(function (t) { return { md: t, lastMod: lm }; });
         })
       ]).then(function (res) {
+        var data = res[0] || {};
         var meta = null;
-        (res[0] && res[0].posts || []).forEach(function (p) { if (p.slug === slug) meta = p; });
-        var md = res[1];
-        // 剥掉 legacy 导出的 YAML front matter
+        (data.posts || []).forEach(function (p) { if (p.slug === slug) meta = p; });
+
+        var md = res[1].md;
+        var lastMod = res[1].lastMod;
         md = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
-        // 页面标题由清单提供，正文里重复的开头一级标题去掉
         if (meta) md = md.replace(/^#\s+[^\n]*\n?/, '');
 
-        document.title = (meta ? meta.title : slug) + ' · Xiaotang27';
+        var title = (meta && meta.title) || slug;
+        document.title = title + ' · Xiaotang27';
 
         var words = countWords(md);
         var mins = readMinutes(words);
+        var date = (meta && meta.date) || lastMod;
 
-        titleEl.textContent = (meta && meta.title) || '';
-        dateEl.textContent = (meta && meta.date) ? '发布于 ' + meta.date : '';
-        wordsEl.textContent = '约 ' + formatWords(words);
-        readTimeEl.textContent = '约 ' + mins + ' 分钟读完';
-        tagsEl.innerHTML = ((meta && meta.tags) || []).map(function (t) {
-          return '<span class="tag">' + t + '</span>';
+        document.getElementById('title').textContent = title;
+        document.getElementById('crumb').textContent = title;
+        document.getElementById('date').textContent = date ? '发布于 ' + dotted(date) : '日期未知';
+        document.getElementById('words').textContent = '约 ' + formatWords(words);
+        document.getElementById('readTime').textContent = '约 ' + mins + ' 分钟读完';
+        document.getElementById('tags').innerHTML = ((meta && meta.tags) || []).map(function (t) {
+          return '<span class="tag">' + esc(t) + '</span>';
         }).join('');
 
-        // 头图：meta.cover 为图片路径（相对站点根目录）；没有则渐变占位
         if (meta && meta.cover) {
-          var src = (meta.cover.indexOf('http') === 0 || meta.cover.charAt(0) === '/')
-            ? meta.cover
-            : '' + meta.cover;
-          coverEl.innerHTML = '<img src="' + src + '" alt="' + (meta.title || '') + '" />';
-        } else {
-          coverEl.classList.add('placeholder');
-          coverEl.innerHTML = BOOK;
+          var coverEl = document.getElementById('cover');
+          coverEl.innerHTML = '<img src="' + esc(meta.cover) + '" alt="' + esc(title) + '" />';
+          coverEl.hidden = false;
         }
 
-        contentEl.innerHTML = renderMarkdown(md);
+        document.getElementById('content').innerHTML = renderMarkdown(md);
 
-        status.style.display = 'none';
-        wrap.style.display = '';
+        /* 上一篇 / 下一篇：按日期倒序，左边更早，右边更新 */
+        var ordered = (data.posts || []).slice().sort(function (a, b) {
+          return String(b.date || '').localeCompare(String(a.date || ''));
+        });
+        var idx = -1;
+        for (var i = 0; i < ordered.length; i++) { if (ordered[i].slug === slug) { idx = i; break; } }
+        if (idx > -1) {
+          var newer = idx > 0 ? ordered[idx - 1] : null;
+          var older = idx < ordered.length - 1 ? ordered[idx + 1] : null;
+          var pager = document.getElementById('pager');
+          var html = '';
+          if (older) {
+            html += '<a class="pager-prev" href="post.html?post=' + encodeURIComponent(older.slug) + '">' +
+              '<span class="pager-label">← 更早</span>' +
+              '<span class="pager-title">' + esc(older.title) + '</span></a>';
+          }
+          if (newer) {
+            html += '<a class="pager-next" href="post.html?post=' + encodeURIComponent(newer.slug) + '">' +
+              '<span class="pager-label">更新 →</span>' +
+              '<span class="pager-title">' + esc(newer.title) + '</span></a>';
+          }
+          if (html) {
+            pager.innerHTML = html;
+            pager.hidden = false;
+          }
+        }
+
+        statusEl.style.display = 'none';
+        document.getElementById('wrap').hidden = false;
       }).catch(function (err) {
         fail(err.message);
       });
-    })();
 
-    var yrEl = document.getElementById('year');
-    if (yrEl) yrEl.textContent = new Date().getFullYear();
+      var yEl = document.getElementById('year');
+      if (yEl) yEl.textContent = new Date().getFullYear();
+    })();
   </script>
 
-  <script src="assets/backtop.js"></script>
-  <script src="assets/theme.js"></script>
-  <script src="assets/island.js"></script>
-  <script src="assets/search.js"></script>
+  <script src="assets/backtop.js?v=1"></script>
+  <script src="assets/search.js?v=1"></script>
 </body>
 </html>
